@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <h1>Log In</h1>
+        <p class="text-secondary">Use this form to login</p>
+
+        <form method="post" action="@Url.Action("LogIn")">
+
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                <input class="form-control" type="email" placeholder="Email" name="email">
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="password" placeholder="Password" name="password">
+            </div>
+            <button class="btn btn-info mt-5_5 mb-4" type="submit">Log In</button>
+        </form>
+
+    </div>
+    <div class="col-md-6">
+
+    </div>
+</div>

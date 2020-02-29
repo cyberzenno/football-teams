@@ -1,0 +1,122 @@
+﻿@using FootballTeams.Web.Models.ViewModels
+@model TeamViewModel
+@{
+    ViewBag.Title = "Edit Team";
+
+
+    var imageUrl = Model.ImageUrl ?? "https://via.placeholder.com/400x250/17a2b8/fff?text=" + Model.Name;
+
+
+    var availableManagers = ViewBag.AvailableManagers as List<TeamMemberViewModel>;
+    var availablePlayers = ViewBag.AvailablePlayers as List<TeamMemberViewModel>;
+}
+
+<form method="post" action="@Url.Action("Edit")">
+
+    @Html.AntiForgeryToken()
+
+    <input type="hidden" name="Id" value="@Model.Id" />
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h1>Photo</h1><img src="@imageUrl">
+
+                <div class="form-group mt-3">
+                    <label>Image Url</label>
+                    <input class="form-control" type="text" name="ImageUrl" value="@imageUrl">
+                </div>
+
+            </div>
+            <div class="col-md-6">
+                <h1>Team Details</h1>
+
+                <div class="form-group">
+                    <label>Team Name</label>
+                    <input class="form-control" type="text" name="Name" value="@Model.Name">
+                </div>
+                <div class="form-group">
+                    <label>Address</label>
+                    <input class="form-control" type="text" name="Address" value="@Model.Address">
+                </div>
+                <div class="form-group row">
+                    <div class="col">
+                        <label>City</label>
+                        <input class="form-control" type="text" name="City" value="@Model.City">
+                    </div>
+                    <div class="col">
+                        <label>Country</label>
+                        <input class="form-control" type="text" name="Country" value="@Model.Country">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <button class="btn btn-info float-right mt-4" type="submit">Save Details</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h1>Manager</h1>
+
+                <div class="form-group">
+                    <select class="form-control" name="ManagerId">
+                        <option value="" @(Model.ManagerId == null ? "selected" : "")>No Manager</option>
+
+                        @foreach (TeamMemberViewModel item in availableManagers)
+                        {
+                            var selected = Model.ManagerId == item.Id ? "selected" : "";
+
+                            <option value="@item.Id" @selected>@item.Fullname</option>
+                        }
+
+                    </select>
+                </div>
+
+            </div>
+            <div class="col-md-6">
+                <h1>Available Players</h1>
+
+                <div class="form-group">
+                    <div class="row">
+
+                        @if (availablePlayers.Any())
+                        {
+                            foreach (TeamMemberViewModel player in availablePlayers)
+                            {
+                                var checkedValue = Model.HasPlayer(player.Id) ? "checked" : "";
+
+                                <div class="col-6">
+
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="p@(player.Id)" value="@player.Id" name="SelectedPlayerIds" @checkedValue>
+                                        <label class="custom-control-label" for="p@(player.Id)">@player.Fullname</label>
+                                    </div>
+
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="col-6">
+                                <span>No Players Available</span>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6"><a class="btn btn-secondary mt-2" role="button" href="@Url.Action(" Index")">Cancel</a></div>
+            <div class="col-md-6">
+                <button class="btn btn-info float-right mt-4" type="submit">Save Details</button>
+            </div>
+        </div>
+    </div>
+
+</form>

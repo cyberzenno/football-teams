@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+    <title>@ViewBag.Title</title>
+
+    <link href="~/Content/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+    <link href="~/Content/css/footer-dark_22022020.css" rel="stylesheet" />
+    <link href="~/Content/css/navigation-with-button.css" rel="stylesheet" />
+    <link href="~/Content/css/styles_15022020.css" rel="stylesheet" />
+
+</head>
+<body>
+
+    <nav class="navbar navbar-light navbar-expand-md bg-light shadow navigation-clean-button">
+        <div class="container">
+            <a class="navbar-brand" href="@Url.Action("Index", "Home")">Football Teams</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse"
+                 id="navcol-1">
+                <ul class="nav navbar-nav mr-auto">
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="@Url.Action("Tables", "Team")">Tables</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="@Url.Action("Index", "Team")">Teams</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="@Url.Action("Index", "Match")">Matches</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="@Url.Action("Index", "Player")">Players</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="@Url.Action("Index", "Manager")">Managers</a></li>
+                </ul>
+
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <span class="navbar-text actions">
+                        <a class="btn btn-light action-button" role="button" data-toggle="modal" data-target="#login-modal">Log In</a>
+                    </span>
+                }
+                else
+                {
+                    <span class="navbar-text actions">
+
+                        <a href="#" class="btn btn-light action-button" role="button">@User.Identity.Name</a>
+
+                    </span>
+                    <a href="@Url.Action("LogOut", "Account")" class="btn btn-secondary btn-sm border rounded-circle float-right" role="button" title="Log Out">X</a>
+                }
+
+            </div>
+        </div>
+    </nav>
+
+    <div class="modal fade" role="dialog" tabindex="-1" id="login-modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form action="@Url.Action("Login","Account")" method="post">
+
+                    @Html.AntiForgeryToken()
+
+                    <div class="modal-header">
+                        <h4 class="modal-title">Log In</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-secondary">Login as a Global Manager, in order to create and update teams, members and matches. (registration not available for now)</p>
+
+                        <div class="form-group"><input class="form-control" type="email" placeholder="Email" name="email"></div>
+                        <div class="form-group"><input class="form-control" type="password" placeholder="Password" name="password"></div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-info" role="button" type="submit">Log In</button><button class="btn btn-light" type="button" data-dismiss="modal">Cancel</button>
+                    </div>
+
+                </form>
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="container">
+
+        @if (TempData["Alert"] != null)
+        {
+            var alert = TempData["Alert"] as FootballTeams.Web.Models.ViewModels.AlertViewModel;
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div role="alert" class="alert alert-@alert.Type border rounded shadow">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <span>
+                            <strong>@alert.Title</strong> - @alert.Message
+                        </span>
+                    </div>
+                </div>
+            </div>
+        }
+
+        @RenderBody()
+
+    </div>
+
+    <footer class="footer footer-dark">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 item text">
+                    <h3>visual driven development®</h3>
+                    <p class="text-left"><em>It's a long way to the top, if you wanna VDD...</em></p>
+                </div>
+            </div>
+            <p class="text-left copyright">&nbsp;cyberzenno ltd © @DateTime.Now.Year</p>
+        </div>
+    </footer>
+
+    <script src="~/Content/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Content/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

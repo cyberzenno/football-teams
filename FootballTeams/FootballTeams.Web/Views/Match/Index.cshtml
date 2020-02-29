@@ -1,0 +1,90 @@
+﻿@using FootballTeams.Web.Models.ViewModels;
+@model IEnumerable<MatchViewModel>
+@{
+    ViewBag.Title = "Matches";
+
+     var isGlobalManager = User.IsInRole("GlobalManager");
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <h1>Matches</h1>
+    </div>
+    <div class="col-md-6"></div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <p>Here you can see the amazing matches</p>
+    </div>
+    <div class="col-md-6">
+        @if (isGlobalManager)
+        {
+            <button class="btn btn-info text-white float-right mb-3" type="button" data-toggle="modal" data-target="#match-modal"
+                    data-action="@Url.Action("Create")">
+                Create Match
+            </button>
+        }
+    </div>
+</div>
+
+
+<div class="table-responsive">
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                <th style="width: 25%;">Team Home</th>
+                <th style="width: 15%;"></th>
+                <th style="width: 15%;"></th>
+                <th style="width: 25%;">Team Away</th>
+                <th style="width: 10%;"></th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var match in Model)
+            {
+                <tr>
+                    <td>
+                        @if (match.TeamHome != null)
+                        {
+                            <a href="@Url.Action("Details", "Team", new { id = match.TeamHome.Id })">@match.TeamHome.Name</a>
+                        }
+                    </td>
+                    <td>
+                        @match.TeamHomeScore
+                    </td>
+                    <td>
+                        @match.TeamAwayScore
+                    </td>
+                    <td>
+                        @if (match.TeamAway != null)
+                        {
+                            <a href="@Url.Action("Details", "Team", new { id = match.TeamAway.Id })">@match.TeamAway.Name</a>
+                        }
+                    </td>
+                    <td>
+                        @if (isGlobalManager)
+                        {
+                            <button class="btn btn-secondary btn-sm" type="button" data-toggle="modal" data-target="#match-modal"
+                                    data-action="@Url.Action("Edit")"
+                                    data-match-id="@match.Id"
+                                    data-team-home-id="@match.TeamHomeId"
+                                    data-team-home-score="@match.TeamHomeScore"
+                                    data-team-away-id="@match.TeamAwayId"
+                                    data-team-away-score="@match.TeamAwayScore">
+                                Edit
+                            </button>
+                        }
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
+@if (isGlobalManager)
+{
+    Html.RenderPartial("_EditModal");
+
+}

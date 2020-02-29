@@ -1,0 +1,60 @@
+﻿@model IEnumerable<FootballTeams.Web.Models.ViewModels.TeamMemberViewModel>
+@{
+     ViewBag.Title = "Players";
+
+     var isGlobalManager = User.IsInRole("GlobalManager");
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <h1>Players</h1>
+    </div>
+    <div class="col-md-6"></div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <p>Just amazing people</p>
+    </div>
+    <div class="col-md-6">
+
+        @if (isGlobalManager)
+        {
+            <a class="btn btn-info float-right mb-3" role="button" href="@Url.Action("Register")">Register Player</a>
+        }
+
+    </div>
+</div>
+
+
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead class="thead-light">
+            <tr>
+                <th>Fullname</th>
+                <th>Position</th>
+                <th>Nationality</th>
+                <th>Team</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var player in Model)
+            {
+                <tr>
+                    <td>
+                        <a href="@Url.Action("Details",new { id= player.Id})">@player.Fullname</a>
+                    </td>
+                    <td>@player.Position</td>
+                    <td>@player.Nationality</td>
+                    <td>@(player.Team?.Name)</td>
+                    <td>
+                        @if (isGlobalManager)
+                        {
+                            <a class="btn btn-secondary active btn-sm text-white float-right" role="button" href="@Url.Action("Edit", new { Id = player.Id })">Edit</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

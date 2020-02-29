@@ -1,0 +1,10 @@
+.vs
+*.user
+PublishProfiles
+packages
+obj
+bin
+
+SQL
+FootballTeams/FootballTeams.Web/Content/vendor
+FootballTeams/FootballTeams.Web/App_Data/FootballTeams_VDD_Map.pdf

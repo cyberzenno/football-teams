@@ -1,0 +1,84 @@
+﻿@using FootballTeams.Web.Models.ViewModels;
+@model TeamMemberViewModel
+@{
+    ViewBag.Title = "Edit Player";
+
+    var dateOfBirth = Model.DateOfBirth.HasValue ? Model.DateOfBirth.Value.ToString("yyyy-MM-dd") : "";
+}
+
+<form method="post" action="@Url.Action("Edit")">
+
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+        <div class="col-md-6">
+            <h1>Edit Player</h1>
+
+            <div class="form-group">
+                <label>Fullname</label>
+                <input class="form-control" type="text" placeholder="Fullname" name="Fullname" value="@Model.Fullname">
+            </div>
+            <div class="form-group">
+                <label>Nationality</label>
+                <input class="form-control" type="text" placeholder="Nationality" name="Nationality" value="@Model.Nationality">
+            </div>
+            <div class="form-group">
+                <label>Date of birth</label>
+                <input class="form-control" type="date" name="DateOfBirth" value="@dateOfBirth">
+            </div>
+            <label>Role</label>
+            <div class="form-group row">
+                <div class="col">
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="role-player" name="Role" value="0">
+                        <label class="custom-control-label" for="role-player">None</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="role-player" name="Role" value="1" checked>
+                        <label class="custom-control-label" for="role-player">Player</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="role-manager" name="Role" value="2">
+                        <label class="custom-control-label" for="role-manager">Manager</label>
+                    </div>
+                </div>
+                <div class="col"></div>
+            </div>
+            <button class="btn btn-info" type="submit">Save</button>
+
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <h1>Team</h1>
+                <label>Please select the team to join (wip)</label>
+                <select class="form-control" name="TeamId">
+                    <option value="">No Team</option>
+
+                    @foreach (TeamViewModel team in ViewBag.AvailableTeams)
+                    {
+                        var selected = Model.TeamId == team.Id ? "selected" : "";
+
+                        <option value="@team.Id" @selected>@team.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Position</label>
+
+                <select class="form-control" name="Position">
+                    <!-- note: I use this unfunctional approach, in order to clearly demonstrate what does it mean to be un-efficient-->
+
+                    <option value="0" @((int)Model.Position == 0 ? "selected" : "")> None</option>
+                    <option value="1" @((int)Model.Position == 1 ? "selected" : "")>Goalkeeper</option>
+                    <option value="2" @((int)Model.Position == 2 ? "selected" : "")>Defender</option>
+                    <option value="3" @((int)Model.Position == 3 ? "selected" : "")>Midfielder</option>
+                    <option value="4" @((int)Model.Position == 4 ? "selected" : "")>Forward</option>
+                </select>
+
+                <div class="col"></div>
+            </div>
+        </div>
+    </div>
+
+</form>
+

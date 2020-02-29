@@ -1,0 +1,116 @@
+﻿@using FootballTeams.Web.Models.ViewModels
+@{
+    ViewBag.Title = "Create team";
+
+    var availableManagers = ViewBag.AvailableManagers as List<TeamMemberViewModel>;
+    var availablePlayers = ViewBag.AvailablePlayers as List<TeamMemberViewModel>;
+}
+
+<form method="post" action="@Url.Action("Create")">
+
+    @Html.AntiForgeryToken()
+
+
+    <div class="row">
+        <div class="col-md-6">
+            <h1>Photo</h1>
+            <img src="https://via.placeholder.com/400x250?text=New_Team">
+
+            <div class="form-group mt-3">
+                <label>Image Url</label>
+                <input class="form-control" type="text" name="ImageUrl">
+            </div>
+
+        </div>
+        <div class="col-md-6">
+            <h1>Team Details</h1>
+
+            <div class="form-group">
+                <label>Team Name</label>
+                <input class="form-control" type="text" name="Name">
+            </div>
+            <div class="form-group">
+                <label>Address</label>
+                <input class="form-control" type="text" name="Address">
+            </div>
+            <div class="form-group row">
+                <div class="col">
+                    <label>City</label>
+                    <input class="form-control" type="text" name="City">
+                </div>
+                <div class="col">
+                    <label>Country</label>
+                    <input class="form-control" type="text" name="Country">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <button class="btn btn-info float-right mt-4" type="submit">Save Details</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <h1>Manager</h1>
+
+            <div class="form-group">
+                <select class="form-control" name="ManagerId">
+                    <option value="" selected>No Manager</option>
+
+                    @foreach (TeamMemberViewModel item in availableManagers)
+                    {
+                        <option value="@item.Id">@item.Fullname</option>
+                    }
+
+                </select>
+            </div>
+
+        </div>
+        <div class="col-md-6">
+
+            <h1>Available Players</h1>
+
+            <div class="form-group">
+                <div class="row">
+
+                    @if (availablePlayers.Any())
+                    {
+                        foreach (TeamMemberViewModel player in availablePlayers)
+                        {
+                            <div class="col-6">
+
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="p@(player.Id)" value="@player.Id" name="SelectedPlayerIds">
+                                    <label class="custom-control-label" for="p@(player.Id)">@player.Fullname</label>
+                                </div>
+
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="col-6">
+                            <span>No Players Available</span>
+                        </div>
+                    }
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-6"><a class="btn btn-secondary mt-2" role="button" href="@Url.Action("Index")">Cancel</a></div>
+        <div class="col-md-6">
+            <button class="btn btn-info float-right mt-4" type="submit">Save Details</button>
+        </div>
+    </div>
+
+
+</form>

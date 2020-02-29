@@ -1,0 +1,37 @@
+﻿@using FootballTeams.Web.Models.ViewModels
+@model IEnumerable<TableRowViewModel>
+
+@{
+    ViewBag.Title = "Tables";
+}
+
+<h1>Tables</h1>
+<p>Like a rolling ball</p>
+<div class="table-responsive">
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                <th>Team</th>
+                <th>Position</th>
+                <th>Points</th>
+                <th>Matches</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var row in Model)
+            {
+                <tr>
+                    <td>
+                        <a href="@Url.Action("Details",new { Id = row.TeamId })">
+                            @row.TeamName
+                        </a>
+
+                    </td>
+                    <td>@row.Position</td>
+                    <td>@row.Points</td>
+                    <td>@row.Matches</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

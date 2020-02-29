@@ -1,0 +1,112 @@
+﻿@using FootballTeams.Web.Models.ViewModels
+
+<button class="btn btn-info text-white float-right mb-3" type="button" data-toggle="modal" data-target="#create-team">Create Match</button>
+
+
+<!--Match Modal-->
+<div class="modal fade" role="dialog" tabindex="-1" id="match-modal">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content" id="match-modal-content">
+
+
+            <div class="modal-header">
+                <h4 class="modal-title">Match</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+
+            <form id="match-modal-form" method="post">
+
+                @Html.AntiForgeryToken()
+
+                <input type="hidden" value="" name="Id" id="MatchId" />
+
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col col-md-3">
+                                <label>Team Home</label>
+                                <div class="form-group">
+                                    <select class="form-control" name="TeamHomeId" id="TeamHomeId">
+                                        <option>No Team</option>
+
+                                        @foreach (TeamViewModel team in ViewBag.AvailableTeams)
+                                        {
+                                            <option value="@team.Id">@team.Name</option>
+                                        }
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col col-md-3">
+                                <label>Score</label>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Team Home Score" name="TeamHomeScore" id="TeamHomeScore" value="0">
+                                </div>
+                            </div>
+                            <div class="col col-md-3">
+                                <label>Score</label>
+                                <div class="form-group"><input type="text" class="form-control" placeholder="Team Away Score" name="TeamAwayScore" id="TeamAwayScore" value="0"></div>
+                            </div>
+                            <div class="col col-md-3">
+                                <div class="form-group">
+                                    <label>Team Away</label>
+                                    <select class="form-control" name="TeamAwayId" id="TeamAwayId">
+                                        <option>No Team</option>
+
+                                        @foreach (TeamViewModel team in ViewBag.AvailableTeams)
+                                        {
+                                            <option value="@team.Id">@team.Name</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-light" type="button" data-dismiss="modal">Close</button>
+                    <button class="btn btn-primary" type="submit">Save</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+<!--This is to avoid "Partial View - Render Scripts" complication (at least for now)-->
+<script>
+
+    //https://stackoverflow.com/questions/799981/document-ready-equivalent-without-jquery
+
+    //equivalent to jQuery(document).ready(...)
+    document.addEventListener("DOMContentLoaded", function (event) {
+
+        $('#match-modal').on('show.bs.modal', function (event) {
+
+            var button = $(event.relatedTarget);
+
+            var action = button.data('action');
+            var matchId = button.data('match-id');
+            var teamHomeId = button.data('team-home-id');
+            var teamHomeScore = button.data('team-home-score');
+            var teamAwayId = button.data('team-away-id');
+            var teamAwayScore = button.data('team-away-score');
+
+            var modal = $(this);
+
+            modal.find('form').attr("action", action);
+            modal.find('#MatchId').val(matchId);
+            modal.find('#TeamHomeId').val(teamHomeId);
+            modal.find('#TeamHomeScore').val(teamHomeScore);
+            modal.find('#TeamAwayId').val(teamAwayId);
+            modal.find('#TeamAwayScore').val(teamAwayScore);
+
+        })
+
+
+    });
+
+</script>
+

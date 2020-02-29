@@ -1,0 +1,87 @@
+﻿@using FootballTeams.Web.Models.Helpers;
+@using FootballTeams.Web.Models.ViewModels
+@model IEnumerable<TeamViewModel>
+@{
+    ViewBag.Title = "Teams";
+
+    var isGlobalManager = User.IsInRole("GlobalManager");
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <h1>Teams</h1>
+    </div>
+    <div class="col-md-6"></div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <p>Browse all the awesome teams</p>
+    </div>
+    <div class="col-md-6">
+
+        @if (isGlobalManager)
+        {
+            <a class="btn btn-info float-right mb-3" role="button" href="@Url.Action("Create")">Create Team</a>
+        }
+
+    </div>
+</div>
+
+<div class="row">
+
+    @foreach (var team in Model)
+    {
+        <div class="col-md-6 col-lg-4 col-xl-3">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">@team.Name</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>Manager</td>
+                                    <td>
+                                        @{
+                                            var manager = team.Manager();
+                                        }
+
+                                        @if (manager != null)
+                                        {
+                                            <a href="@Url.Action("Details","Manager",new { id=manager.Id})">@manager.Fullname</a>
+                                        }
+                                        else
+                                        {
+                                            <span>na</span>
+                                        }
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Matches Played</td>
+                                    <td>@team.NumberOfMatchesPlayed()</td>
+                                </tr>
+                                <tr>
+                                    <td>Points</td>
+                                    <td>@team.Points()</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a class="btn btn-info active btn-sm text-white" role="button" href="@Url.Action("Details", new { Id = team.Id })">View</a>
+
+                    @if (isGlobalManager)
+                    {
+                        <a class="btn btn-secondary active btn-sm text-white float-right" role="button" href="@Url.Action("Edit", new { Id = team.Id })">Edit</a>
+                    }
+
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+
+
