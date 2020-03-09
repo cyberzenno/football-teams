@@ -1,0 +1,74 @@
+﻿@using FootballTeams.Domain.AdditionalDetail;
+@using FootballTeams.Web.Models.ViewModels;
+@model IEnumerable<TeamMemberViewModel>
+@{
+    ViewBag.Title = "Imported Managers";
+}
+
+<h1>
+    Imported Managers
+</h1>
+<p>
+    @Model.Count() Parsed results
+</p>
+<a class="btn btn-secondary  mt-3 mb-3" role="button" href="@Url.Action("Index")">Back to Importers</a>
+
+<div class="row">
+    <div class="col-md-6">
+        <h1>Managers</h1>
+    </div>
+    <div class="col-md-6"></div>
+</div>
+
+<div class="row">
+
+    @foreach (var manager in Model)
+    {
+        <div class="col-md-6 col-lg-4 col-xl-3">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">@manager.Fullname</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>Team</td>
+                                    <td>
+                                        @if (manager.Team != null)
+                                        {
+                                            <img class="team-badge fl mr" src="@manager.Team.ImageUrl">
+                                            <a href="@Url.Action("Details","Team",new { id=manager.Team.Id})">@manager.Team.Name</a>
+                                        }
+                                        else
+                                        {
+                                            <span>-</span>
+                                        }
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Years</td>
+                                    <td>@manager.Age()</td>
+                                </tr>
+                                <tr>
+                                    <td>Nationality</td>
+                                    <td>
+                                        <span class="flag @manager.NationalityISO2"></span>
+                                        @manager.Nationality
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a class="btn btn-info active btn-sm text-white" role="button" href="@Url.Action("Details", new { Id = manager.Id })">View</a>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+
+

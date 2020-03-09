@@ -1,8 +1,13 @@
-﻿@model IEnumerable<FootballTeams.Web.Models.ViewModels.TeamMemberViewModel>
+﻿@using FootballTeams.Web.Models.ViewModels
+@using FootballTeams.Domain.AdditionalDetail;
+@using System.Configuration;
+@model IEnumerable<TeamMemberViewModel>
 @{
-     ViewBag.Title = "Players";
+    ViewBag.Title = "Players";
 
-     var isGlobalManager = User.IsInRole("GlobalManager");
+    var isGlobalManager = User.IsInRole("GlobalManager");
+
+    var fifaAssociationUrl = ConfigurationManager.AppSettings["FifaAssociationUrl"];
 }
 
 <div class="row">
@@ -30,6 +35,7 @@
     <table class="table table-hover">
         <thead class="thead-light">
             <tr>
+                <th>No. </th>
                 <th>Fullname</th>
                 <th>Position</th>
                 <th>Nationality</th>
@@ -42,11 +48,41 @@
             {
                 <tr>
                     <td>
-                        <a href="@Url.Action("Details",new { id= player.Id})">@player.Fullname</a>
+                        @player.Number
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Details",new { id = player.Id})">@player.Fullname</a>
                     </td>
                     <td>@player.Position</td>
-                    <td>@player.Nationality</td>
-                    <td>@(player.Team?.Name)</td>
+                    <td>
+                        <div class="row">
+                            <div class="col col-3">
+                                <img class="flag-single" src="@player.NationalityFlagUrl(Url)">
+                            </div>
+                            <div class="col">
+
+                                <a target="_blank" href="@($"{fifaAssociationUrl}{player.AdditionalDetails.GetDetailValueOrDefault("FIFA")}")">@player.Nationality</a>
+
+
+
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        @if (player.Team != null)
+                        {
+                            <a href="@Url.Action("Details","Team",new { id = player.Team.Id})"> @player.Team.Name</a>
+
+                            <img class="team-badge fl mr" src="@player.Team.ImageUrlOrDefault(Url)">
+                        }
+                        else
+                        {
+                            //todo: remove this hardcoded image
+                            //todo: rename defautl-team.ong to no-team.png
+                            <img class="team-badge fl mr" src="@Url.Content("~/content/img/teams/no-team.png")" title="No Team" />
+                        }
+
+                    </td>
                     <td>
                         @if (isGlobalManager)
                         {
@@ -54,7 +90,7 @@
                         }
                     </td>
                 </tr>
-            }
-        </tbody>
-    </table>
-</div>
+                }
+            </tbody>
+        </table>
+    </div>

@@ -11,8 +11,8 @@
     <table class="table">
         <thead class="thead-light">
             <tr>
+                <th class="w-5"></th>
                 <th>Team</th>
-                <th>Position</th>
                 <th>Points</th>
                 <th>Matches</th>
             </tr>
@@ -21,13 +21,13 @@
             @foreach (var row in Model)
             {
                 <tr>
+                    <td>@row.Position</td>
                     <td>
                         <a href="@Url.Action("Details",new { Id = row.TeamId })">
                             @row.TeamName
                         </a>
-
+                        <img class="team-badge fl mr" src="@TeamExtensions.ImageUrlOrDefault(row.TeamName, Url)">
                     </td>
-                    <td>@row.Position</td>
                     <td>@row.Points</td>
                     <td>@row.Matches</td>
                 </tr>

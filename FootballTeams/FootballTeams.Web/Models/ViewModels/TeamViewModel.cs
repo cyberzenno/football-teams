@@ -1,7 +1,10 @@
-﻿using FootballTeams.Domain.TeamMembers;
+﻿using FootballTeams.Domain.AdditionalDetail;
+using FootballTeams.Domain.TeamMembers;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Web.Mvc;
 
 namespace FootballTeams.Web.Models.ViewModels
 {
@@ -15,6 +18,15 @@ namespace FootballTeams.Web.Models.ViewModels
         public string City { get; set; }
         public string Country { get; set; }
         public string ImageUrl { get; set; }
+        public string AdditionalDetailsJson { get; set; }
+
+        public AdditionalDetails AdditionalDetails
+        {
+            get
+            {
+                return AdditionalDetailsJson.ToAdditionalDetailsDataModel();
+            }
+        }
 
         public int? ManagerId { get; set; }
         public IEnumerable<int> SelectedPlayerIds { get; set; }
@@ -130,6 +142,21 @@ namespace FootballTeams.Web.Models.ViewModels
             var hasDraw = match.TeamHomeScore == match.TeamAwayScore;
 
             return hasDraw ? "d" : "l";
+        }
+
+        public static string ImageUrlOrDefault(this TeamViewModel team, UrlHelper urlHelper)
+        {
+            return urlHelper.Content(team.ImageUrl ?? $"~/content/img/teams/{team.Name.ToLower().Replace(" ", "-")}.png");
+        }
+
+        public static string ImageUrlOrDefault(this string teamName, UrlHelper urlHelper)
+        {
+            return urlHelper.Content($"~/content/img/teams/{teamName.ToLower().Replace(" ", "-")}.png");
+        }
+
+        public static string ImageUrlOrNoTeam(this TeamViewModel team, UrlHelper urlHelper)
+        {
+            return urlHelper.Content(team.ImageUrl ?? "~/content/img/teams/no-team.png");
         }
     }
 }

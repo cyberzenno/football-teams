@@ -1,0 +1,79 @@
+﻿<!--TODO: HIGH PRIORITY: move this stuff on proper JS-->
+<!--This is to avoid "Partial View - Render Scripts" complication (at least for now)-->
+
+<!--I want to use this 'brutal' approch, in order to see how AngularJS can make life easiery (if really so)-->
+<template id="searchResultTemplate">
+    <tr>
+        <td>
+            <img class="shadow" src="@Url.Content($"~/Content/img/flags/")#ISO3.gif" ; style="height: 20px;" />
+        </td>
+        <td>
+            <span class="flag #ISO2"></span>
+        </td>
+        <td>
+            <a href="#OriginUrl" target="_blank">#ShortName</a>
+        </td>
+        <td>#OfficialName</td>
+        <td>#ISO3</td>
+        <td>#ISO2</td>
+        <td>#UNI</td>
+        <td>#FIFA</td>
+        <td>#FifaAssociation</td>
+    </tr>
+</template>
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+        $('#countrySearchInput').on('keyup', searchCountry);
+    });
+
+    function searchCountry(event) {
+
+        var searchUrl = SETTINGS.CountryAPI.CountryAPI_Search + event.target.value;
+      
+
+        if (event.target.value === "") {
+            searchUrl = SETTINGS.CountryAPI.CountryAPI_All;
+        }
+
+        $('#countryTableRecords').html("");
+
+        $.ajax({
+
+            url: searchUrl,
+            type: 'GET',
+            success: function (data) {
+                populateResults(data);
+            },
+            error: function (response) {
+
+            }
+        })
+
+    }
+
+    function populateResults(data) {
+
+        $('#countryTableRecords').html("");
+
+        for (var i in data) {
+
+            var rowHtml = document.querySelector('#searchResultTemplate').innerHTML;
+
+            rowHtml = rowHtml.replace(/#ShortName/g, data[i].ShortName);
+            rowHtml = rowHtml.replace(/#OfficialName/g, data[i].OfficialName);
+            rowHtml = rowHtml.replace(/#ISO3/g, data[i].ISO3);
+            rowHtml = rowHtml.replace(/#ISO2/g, data[i].ISO2);
+            rowHtml = rowHtml.replace(/#UNI/g, data[i].UNI);
+            rowHtml = rowHtml.replace(/#FIFA/g, data[i].FIFA);
+            rowHtml = rowHtml.replace(/#FifaAssociation/g, data[i].FifaAssociation);
+            rowHtml = rowHtml.replace(/#OriginUrl/g, data[i].OriginUrl);
+
+            $('#countryTableRecords').append(rowHtml);
+        }
+
+        $('#searchResults').text("Search Results " + data.length);
+    }
+
+</script>

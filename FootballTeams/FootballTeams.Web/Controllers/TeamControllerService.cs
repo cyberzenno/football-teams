@@ -1,4 +1,5 @@
-﻿using FootballTeams.Domain.Matches;
+﻿using FootballTeams.Domain.AdditionalDetail;
+using FootballTeams.Domain.Matches;
 using FootballTeams.Domain.TeamMembers;
 using FootballTeams.Domain.Teams;
 using FootballTeams.Web.Models.Helpers;
@@ -111,6 +112,7 @@ namespace FootballTeams.Web.Controllers
                                        {
                                            TeamId = team.Id,
                                            TeamName = team.Name,
+                                           TeamImageUrl = team.ImageUrl,
                                            Position = position++,
                                            Points = team.Points(),
                                            Matches = team.NumberOfMatchesPlayed()
@@ -122,6 +124,8 @@ namespace FootballTeams.Web.Controllers
         public TeamViewModel Create(TeamViewModel vmTeam)
         {
             var team = vmTeam.ToDataModel();
+
+            team.AdditionalDetailsJson = AdditionalDetailsFactory.CreateFootbalTeamsLocalCreationDetails().ToJson();
 
             if (vmTeam.ManagerId.HasValue)
             {

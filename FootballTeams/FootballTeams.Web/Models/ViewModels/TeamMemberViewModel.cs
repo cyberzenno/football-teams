@@ -1,5 +1,8 @@
-﻿using FootballTeams.Domain.TeamMembers;
+﻿using FootballTeams.Domain.AdditionalDetail;
+using FootballTeams.Domain.TeamMembers;
 using System;
+using System.Web.Mvc;
+using FootballTeams.Domain.AdditionalDetail;
 
 namespace FootballTeams.Web.Models.ViewModels
 {
@@ -9,6 +12,8 @@ namespace FootballTeams.Web.Models.ViewModels
 
         public string Fullname { get; set; }
         public string Nationality { get; set; }
+        public string NationalityISO2 { get; set; }
+        public string NationalityISO3 { get; set; }
         public DateTime? DateOfBirth { get; set; }
 
         public int? TeamId { get; set; }
@@ -16,6 +21,16 @@ namespace FootballTeams.Web.Models.ViewModels
 
         public MemberRole Role { get; set; }
         public PlayerPosition Position { get; set; }
+
+        public int? Number { get; set; }
+        public string AdditionalDetailsJson { get; set; }
+        public AdditionalDetails AdditionalDetails
+        {
+            get
+            {
+                return AdditionalDetailsJson.ToAdditionalDetailsDataModel();
+            }
+        }
     }
 
     public static class TeamMemberViewModelExtensions
@@ -50,6 +65,11 @@ namespace FootballTeams.Web.Models.ViewModels
         public static bool IsManager(this TeamMemberViewModel vmTeamMember)
         {
             return vmTeamMember.Role == MemberRole.Manager;
+        }
+
+        public static string NationalityFlagUrl(this TeamMemberViewModel vmTeamMember, UrlHelper url)
+        {
+            return url.Content($"~/content/img/flags/{vmTeamMember.NationalityISO3}.gif");
         }
     }
 }

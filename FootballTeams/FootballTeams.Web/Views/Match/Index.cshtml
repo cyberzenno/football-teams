@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Matches";
 
-     var isGlobalManager = User.IsInRole("GlobalManager");
+    var isGlobalManager = User.IsInRole("GlobalManager");
 }
 
 <div class="row">
@@ -47,7 +47,10 @@
                     <td>
                         @if (match.TeamHome != null)
                         {
-                            <a href="@Url.Action("Details", "Team", new { id = match.TeamHome.Id })">@match.TeamHome.Name</a>
+                            <a href="@Url.Action("Details", "Team", new { id = match.TeamHome.Id })">
+                                @match.TeamHome.Name
+                                <img class="team-badge fl mr" src="@match.TeamHome.ImageUrlOrDefault(Url)">
+                            </a>
                         }
                     </td>
                     <td>
@@ -59,7 +62,10 @@
                     <td>
                         @if (match.TeamAway != null)
                         {
-                            <a href="@Url.Action("Details", "Team", new { id = match.TeamAway.Id })">@match.TeamAway.Name</a>
+                            <a href="@Url.Action("Details", "Team", new { id = match.TeamAway.Id })">
+                                @match.TeamAway.Name
+                                <img class="team-badge fl mr" src="@match.TeamAway.ImageUrlOrDefault(Url)">
+                            </a>
                         }
                     </td>
                     <td>

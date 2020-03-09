@@ -1,4 +1,5 @@
-﻿using FootballTeams.Domain.Matches;
+﻿using FootballTeams.Domain.Countries;
+using FootballTeams.Domain.Matches;
 using FootballTeams.Domain.TeamMembers;
 using FootballTeams.Domain.Teams;
 using FootballTeams.Domain.Users;
@@ -12,6 +13,7 @@ namespace FootballTeams.Data
         public DbSet<TeamMember> TeamMembers { get; set; }
         public DbSet<Team> Teams { get; set; }
         public DbSet<Match> Matches { get; set; }
+        public DbSet<Country> Countires { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

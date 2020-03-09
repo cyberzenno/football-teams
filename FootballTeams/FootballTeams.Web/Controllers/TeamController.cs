@@ -61,7 +61,7 @@ namespace FootballTeams.Web.Controllers
 
             AlertModelStateErrors();
 
-            return View();
+            return RedirectToAction("Index");
         }
 
         [Authorize(Roles = "GlobalManager")]
@@ -94,7 +94,7 @@ namespace FootballTeams.Web.Controllers
 
                 AlertSuccess("Saved", "Team saved correctly");
 
-                return RedirectToAction("Edit", new { id = updatedTeam.Id });
+                return RedirectToAction("Index");
             }
 
             AlertModelStateErrors();

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FootballTeams.Domain.Countries;
 using FootballTeams.Domain.Matches;
 using FootballTeams.Domain.TeamMembers;
 using FootballTeams.Domain.Teams;
@@ -90,6 +91,18 @@ namespace FootballTeams.Web.Models.Helpers
         public static IEnumerable<MatchViewModel> ToViewModel(this IEnumerable<Match> dataModel)
         {
             return Mapper.Map<IEnumerable<MatchViewModel>>(dataModel);
+        }
+
+
+        //Country
+        public static IEnumerable<Country> ToDataModel(this IEnumerable<CountryViewModel> viewModel)
+        {
+            return Mapper.Map<IEnumerable<Country>>(viewModel);
+        }
+
+        public static IEnumerable<CountryViewModel> ToViewModel(this IEnumerable<Country> dataModel)
+        {
+            return Mapper.Map<IEnumerable<CountryViewModel>>(dataModel);
         }
 
     }

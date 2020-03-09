@@ -1,4 +1,4 @@
-﻿@using FootballTeams.Web.Models.Helpers;
+﻿@using FootballTeams.Domain.AdditionalDetail;
 @using FootballTeams.Web.Models.ViewModels
 @model IEnumerable<TeamViewModel>
 @{
@@ -34,7 +34,11 @@
         <div class="col-md-6 col-lg-4 col-xl-3">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="mb-0">@team.Name</h5>
+                    <h5 class="mb-0">
+                        @team.Name
+                        <img class="team-badge fr" src="@team.ImageUrlOrDefault(Url)">
+                    </h5>
+                    <small>@(team.City ?? "-")</small>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -49,7 +53,7 @@
 
                                         @if (manager != null)
                                         {
-                                            <a href="@Url.Action("Details","Manager",new { id=manager.Id})">@manager.Fullname</a>
+                                            <a href="@Url.Action("Details", "Manager", new { id = manager.Id })">@manager.Fullname</a>
                                         }
                                         else
                                         {
@@ -65,6 +69,20 @@
                                     <td>Points</td>
                                     <td>@team.Points()</td>
                                 </tr>
+                                @{
+                                    var stadium = team.AdditionalDetails.GetDetail("Original Stadium");
+                                    if (stadium != null)
+                                    {
+                                        <tr>
+                                            <td colspan="2">
+                                                <small>
+                                                    Stadium
+                                                </small><br />
+                                                <a href="@stadium.Url" target="_blank">@stadium.Value</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
                             </tbody>
                         </table>
                     </div>

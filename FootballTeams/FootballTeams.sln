@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FootballTeams.Data.Test.Int
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FootballTeams.Web.Test.Unit", "FootballTeams.Web.Test.Unit\FootballTeams.Web.Test.Unit.csproj", "{26F36117-D3FA-4CA5-9565-150F201A2926}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FootballTeams.Web.Api", "FootballTeams.Web.Api\FootballTeams.Web.Api.csproj", "{9832123E-FE66-49BA-B344-821AE3358E05}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FootballTeams.Data.Importer", "FootballTeams.Data.Importer\FootballTeams.Data.Importer.csproj", "{0075EF7F-3FFC-4633-8864-7ADC95EC6D43}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{26F36117-D3FA-4CA5-9565-150F201A2926}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26F36117-D3FA-4CA5-9565-150F201A2926}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{26F36117-D3FA-4CA5-9565-150F201A2926}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9832123E-FE66-49BA-B344-821AE3358E05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9832123E-FE66-49BA-B344-821AE3358E05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9832123E-FE66-49BA-B344-821AE3358E05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9832123E-FE66-49BA-B344-821AE3358E05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0075EF7F-3FFC-4633-8864-7ADC95EC6D43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0075EF7F-3FFC-4633-8864-7ADC95EC6D43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0075EF7F-3FFC-4633-8864-7ADC95EC6D43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0075EF7F-3FFC-4633-8864-7ADC95EC6D43}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

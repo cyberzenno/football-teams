@@ -4,6 +4,7 @@
     {
         public int TeamId { get; set; }
         public string TeamName { get; set; }
+        public string TeamImageUrl { get; set; }
         public int Position { get; set; }
         public int Points { get; set; }
         public int Matches { get; set; }

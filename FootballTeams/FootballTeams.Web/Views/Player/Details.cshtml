@@ -1,19 +1,21 @@
-﻿@using FootballTeams.Web.Models.ViewModels;
+﻿@using FootballTeams.Web.Models.ViewModels
+@using FootballTeams.Domain.AdditionalDetail
 @model TeamMemberViewModel
 @{
     ViewBag.Title = "Player Details";
 
     var dateOfBirth = Model.DateOfBirth.HasValue ? Model.DateOfBirth.Value.ToString("dd/MM/yyyy") : "na";
+
+    var isGlobalManager = User.IsInRole("GlobalManager");
 }
 
 <h1>@Model.Fullname</h1>
-<p>@Model.Role</p>
-
 <div class="row">
     <div class="col-md-6">
         <div class="card">
             <div class="card-header">
-                <h5 class="mb-0">Details</h5>
+                <small>Football Teams Details</small>
+                <h5 class="mb-0">No. @Model.Number</h5>
             </div>
             <div class="table-responsive">
                 <table class="table">
@@ -32,6 +34,13 @@
                             <td>@Model.Position</td>
                         </tr>
                         <tr>
+                            <td>Nationality</td>
+                            <td>
+                                <img class="flag-single" src="@Model.NationalityFlagUrl(Url)">
+                                @Model.Nationality
+                            </td>
+                        </tr>
+                        <tr>
                             <td>Age</td>
                             <td>@Model.Age()</td>
                         </tr>
@@ -39,16 +48,25 @@
                             <td>Date of birth</td>
                             <td>@dateOfBirth</td>
                         </tr>
-                        <tr>
-                            <td>Nationality</td>
-                            <td>@Model.Nationality</td>
-                        </tr>
+
                     </tbody>
                 </table>
             </div>
             <div class="card-body"></div>
         </div>
     </div>
-    <div class="col-md-6"></div>
+    <div class="col-md-6">
+        @Html.DisplayFor(x => Model.AdditionalDetails)
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        @if (isGlobalManager)
+        {
+            <a class="btn btn-info  float-right mt-3 mb-3" role="button" href="@Url.Action("Edit",new { id= Model.Id})">Edit</a>
+        }
+        <a class="btn btn-secondary mt-3 mb-3" role="button" href="@Url.Action("Index")">Back to List</a>
+    </div>
+    <div class="col"></div>
 </div>
 

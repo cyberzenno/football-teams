@@ -10,7 +10,14 @@
 
     <link href="~/Content/css/footer-dark_22022020.css" rel="stylesheet" />
     <link href="~/Content/css/navigation-with-button.css" rel="stylesheet" />
-    <link href="~/Content/css/styles_15022020.css" rel="stylesheet" />
+    <link href="~/Content/css/styles_06032020.css" rel="stylesheet" />
+    <link href="~/Content/css/flags.css" rel="stylesheet" />
+
+    @{
+
+        Html.RenderPartial("_GA");
+
+    }
 
 </head>
 <body>
@@ -26,6 +33,15 @@
                     <li class="nav-item" role="presentation"><a class="nav-link" href="@Url.Action("Index", "Match")">Matches</a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="@Url.Action("Index", "Player")">Players</a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="@Url.Action("Index", "Manager")">Managers</a></li>
+
+                    <li class="nav-item dropdown show" style="cursor: pointer;">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="true">Special Areas</a>
+                        <div class="dropdown-menu" role="menu">
+                            <a class="dropdown-item" href="@Url.Action("Index","Country")">Country API</a>
+                            <a class="dropdown-item" href="@Url.Action("Index","Import")">Data Importers</a>
+                        </div>
+                    </li>
+
                 </ul>
 
                 @if (!User.Identity.IsAuthenticated)
@@ -112,6 +128,8 @@
 
     <script src="~/Content/vendor/jquery/jquery.min.js"></script>
     <script src="~/Content/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Content/js/settings.js"></script>
+
 
     @RenderSection("scripts", required: false)
 

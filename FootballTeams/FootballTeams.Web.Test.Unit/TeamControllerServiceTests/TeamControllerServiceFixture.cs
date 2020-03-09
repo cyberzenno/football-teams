@@ -4,11 +4,6 @@ using FootballTeams.Domain.Teams;
 using FootballTeams.Web.Controllers;
 using Moq;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FootballTeams.Web.Test.Unit.TeamControllerServiceTests
 {

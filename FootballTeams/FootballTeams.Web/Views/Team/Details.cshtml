@@ -1,19 +1,23 @@
 ﻿@using FootballTeams.Web.Models.ViewModels
+@using FootballTeams.Domain.AdditionalDetail
+
 @model TeamViewModel
 @{
     ViewBag.Title = "Team Details";
 
-    var imageUrl = Model.ImageUrl ?? "https://via.placeholder.com/400x250/17a2b8/fff?text=" + Model.Name;
+    var imageUrl = Model.ImageUrlOrDefault(Url);
 
+    var isGlobalManager = User.IsInRole("GlobalManager");
 }
 
 <h1>@Model.Name</h1>
 
 <div class="row">
-    <div class="col-md-6"><img class="d-block mx-auto" src="@imageUrl" width="400"></div>
-    <div class="col-md-6">
+    <div class="col-md-4"><img class="d-block mx-auto" src="@imageUrl" width="400"></div>
+    <div class="col-md-4">
         <div class="card">
             <div class="card-header">
+                <small>Football Teams Details</small>
                 <h5 class="mb-0">Team Details</h5>
             </div>
             <div class="table-responsive">
@@ -54,7 +58,23 @@
             <div class="card-body"></div>
         </div>
     </div>
+    <div class="col-md-4">
+        @Html.DisplayFor(x => Model.AdditionalDetails)
+    </div>
 </div>
+
+<div class="row">
+    <div class="col">
+        <a class="btn btn-secondary mt-3 mb-3" role="button" href="@Url.Action("Index")">Back to List</a>
+        @if (isGlobalManager)
+        {
+            <a class="btn btn-info mt-3 mb-3 float-right" role="button" href="@Url.Action("Edit",new { id = Model.Id })">Edit</a>
+        }
+    </div>
+    <div class="col"></div>
+    <div class="col"></div>
+</div>
+
 
 <ul class="nav nav-tabs">
     <li class="nav-item"><a class="nav-link active" role="tab" data-toggle="tab" href="#tab-1">Matches</a></li>
@@ -68,10 +88,16 @@
                     @foreach (var match in Model.Matches)
                     {
                         <tr>
-                            <td>@match.TeamHome.Name</td>
+                            <td>
+                                @match.TeamHome.Name
+                                <img class="team-badge fl mr" src="@match.TeamHome.ImageUrl">
+                            </td>
                             <td>@match.TeamHomeScore</td>
                             <td>@match.TeamAwayScore</td>
-                            <td>@match.TeamAway.Name</td>
+                            <td>
+                                @match.TeamAway.Name
+                                <img class="team-badge fl mr" src="@match.TeamAway.ImageUrl">
+                            </td>
                             <td>
                                 @{
                                     var matchResult = Model.MatchResult(match);
@@ -116,11 +142,15 @@
                             </td>
                             <td>@player.Age()</td>
                             <td>@player.Position</td>
-                            <td>@player.Nationality</td>
+                            <td>
+                                <img class="flag-single" src="@player.NationalityFlagUrl(Url)">
+                                @player.Nationality
+                            </td>
                         </tr>
                     }
                 </tbody>
             </table>
         </div>
     </div>
+    <a class="btn btn-secondary mt-3 mb-3" role="button" href="@Url.Action("Index")">Back to List</a>
 </div>

@@ -1,0 +1,70 @@
+﻿@using FootballTeams.Domain.AdditionalDetail;
+@using FootballTeams.Web.Models.ViewModels;
+@using FootballTeams.Domain.Teams;
+@model IEnumerable<CountryViewModel>
+@{
+    ViewBag.Title = "Imported Players";
+}
+<h1>
+    FIFA Country Codes
+</h1>
+<p>
+    @Model.Count() Parsed results
+</p>
+
+<a class="btn btn-secondary  mt-3 mb-3" role="button" href="@Url.Action("Index")">Back to Importers</a>
+
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead class="thead-light">
+            <tr>
+                <th>Flag Single</th>
+                <th>Flag Sprite</th>
+                <th>Short Name</th>
+                <th>Official Name</th>
+                <th>ISO3</th>
+                <th>ISO2</th>
+                <th>UNI</th>
+                <th>FIFA</th>
+                <th>Fifa Association</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var country in Model)
+            {
+                var flagUrl = "";
+
+                if (!string.IsNullOrEmpty(country.ISO3))
+                {
+                    flagUrl = Url.Content($"~/Content/img/flags/{country.ISO3}.gif");
+                }
+
+                var noFifaStyle = "";
+
+                if (string.IsNullOrEmpty(country.FIFA))
+                {
+                    noFifaStyle = "bg-warning";
+                }
+
+                <tr class="@noFifaStyle">
+                    <td>
+                        <img class="shadow" src="@flagUrl" style="height: 20px;" />
+                    </td>
+                    <td>
+                        <span class="flag @country.ISO2"></span>
+                    </td>
+                    <td>
+                        <a href="@country.OriginUrl" target="_blank">@country.ShortName</a>
+                    </td>
+                    <td>@country.OfficialName</td>
+                    <td>@country.ISO3</td>
+                    <td>@country.ISO2</td>
+                    <td>@country.UNI</td>
+                    <td>@country.FIFA</td>
+                    <td>@country.FifaAssociation</td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>

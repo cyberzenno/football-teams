@@ -45,6 +45,7 @@
                                     <td>
                                         @if (manager.Team != null)
                                         {
+                                            <img class="team-badge fl mr" src="@manager.Team.ImageUrl">
                                             <a href="@Url.Action("Details","Team",new { id=manager.Team.Id})">@manager.Team.Name</a>
                                         }
                                         else
@@ -59,7 +60,10 @@
                                 </tr>
                                 <tr>
                                     <td>Nationality</td>
-                                    <td>@manager.Nationality</td>
+                                    <td>
+                                        <span class="flag @manager.NationalityISO2"></span>
+                                        @manager.Nationality
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>

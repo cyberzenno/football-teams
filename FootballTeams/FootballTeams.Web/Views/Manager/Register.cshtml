@@ -1,5 +1,4 @@
 ﻿@using FootballTeams.Web.Models.ViewModels;
-@model FootballTeams.Web.Models.ViewModels.TeamMemberViewModel
 @{
     ViewBag.Title = "Register Manager";
 }
@@ -18,7 +17,15 @@
             </div>
             <div class="form-group">
                 <label>Nationality</label>
-                <input class="form-control" type="text" placeholder="Nationality" name="Nationality" />
+                <input id="nationality" class="form-control" type="text" placeholder="Nationality" name="Nationality" autocomplete="no" value="">
+                <input id="nationalityISO2" type="hidden" name="NationalityISO2" value="">
+                <input id="nationalityISO3" type="hidden" name="NationalityISO3" value="">
+
+                <div class="dropdown" style="cursor:pointer;">
+                    <div id="nationality-dropdown" class="dropdown-menu" role="menu">
+
+                    </div>
+                </div>
             </div>
             <div class="form-group">
                 <label>Date of birth</label>
@@ -48,7 +55,7 @@
         </div>
         <div class="col-md-6">
             <h1>Team</h1>
-            <label>Please select the team to join (wip)</label>
+            <label>Please select the team to join </label>
             <select class="form-control" name="TeamId">
 
                 <option value="">No Team</option>
@@ -64,3 +71,6 @@
 
 </form>
 
+@{
+    Html.RenderPartial("~/Views/Shared/_NationalityLookupScript.cshtml");
+}

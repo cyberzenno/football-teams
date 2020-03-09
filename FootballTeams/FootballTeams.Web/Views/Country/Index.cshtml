@@ -1,0 +1,80 @@
+﻿@using FootballTeams.Web.Models.ViewModels;
+@model IEnumerable<CountryViewModel>
+@{
+    ViewBag.Title = "Countries";
+}
+
+<style>
+    /*In order to avoid scroll  bar jumping*/
+    html {
+        overflow-y: scroll;
+    }
+</style>
+
+
+<h1>Countries</h1><div class="input-group mb-2">
+    <input type="text" id="countrySearchInput" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1">
+    <div class="input-group-append">
+        <span class="input-group-text">
+            <i class="fa fa-search">Search</i>
+        </span>
+    </div>
+</div>
+<p>
+    This is more for fun, but also useful experiment for Nationality Flags with two different approaches.<br />
+    Countries and all relevant details are served by <a href="#">Football Teams Country API</a>.<br>
+
+</p>
+<small class="font-italic" id="searchResults"></small>
+<small class="float-right font-italic">Total Countries @Model.Count()</small>
+
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead class="thead-light">
+            <tr>
+                <th>Flag Single</th>
+                <th>Flag Sprite</th>
+                <th>Short Name</th>
+                <th>Official Name</th>
+                <th>ISO3</th>
+                <th>ISO2</th>
+                <th>UNI</th>
+                <th>FIFA</th>
+                <th>Fifa Association</th>
+            </tr>
+        </thead>
+        <tbody id="countryTableRecords">
+            @foreach (var country in Model)
+            {
+                <tr>
+                    <td>
+                        <img class="shadow" src="@Url.Content(country.FlagUrl)" style="height: 20px;">
+                    </td>
+                    <td>
+                        <span class="flag @country.ISO2"></span>
+                    </td>
+                    <td>
+                        <a href="@country.OriginUrl" target="_blank">@country.ShortName</a>
+                    </td>
+                    <td>@country.OfficialName</td>
+                    <td>@country.ISO3</td>
+                    <td>@country.ISO2</td>
+                    <td>@country.UNI</td>
+                    <td>@country.FIFA</td>
+                    <td>
+                        @if (string.IsNullOrEmpty(country.FIFA))
+                        {
+                            <span class="badge badge-warning" title="No Fifa Code">No FIFA Code</span>
+                        }
+                        @country.FifaAssociation
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
+@{
+    Html.RenderPartial("_CountrySearchScript");
+}

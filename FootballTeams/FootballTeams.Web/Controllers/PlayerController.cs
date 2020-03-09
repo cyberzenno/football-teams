@@ -1,4 +1,4 @@
-﻿using FootballTeams.Domain.Matches;
+﻿using FootballTeams.Domain.AdditionalDetail;
 using FootballTeams.Domain.TeamMembers;
 using FootballTeams.Domain.Teams;
 using FootballTeams.Web.Models.Helpers;
@@ -15,7 +15,7 @@ namespace FootballTeams.Web.Controllers
         public PlayerController(ITeamMemberRepository memeberRespository, ITeamRepository teamRepository)
         {
             _memeberRespository = memeberRespository;
-            _teamRepository = teamRepository;
+            _teamRepository = teamRepository; 
         }
 
         public ActionResult Index()
@@ -51,6 +51,8 @@ namespace FootballTeams.Web.Controllers
             {
                 vmPlayer.Role = MemberRole.Player;
 
+                vmPlayer.AdditionalDetailsJson = AdditionalDetailsFactory.CreateFootbalTeamsLocalCreationDetails().ToJson();
+
                 _memeberRespository.Add(vmPlayer.ToDataModel());
 
                 AlertSuccess("Saved", "Player registered");
@@ -85,9 +87,13 @@ namespace FootballTeams.Web.Controllers
             {
                 existingPlayer.Fullname = vmPlayer.Fullname;
                 existingPlayer.Nationality = vmPlayer.Nationality;
+                existingPlayer.NationalityISO2 = vmPlayer.NationalityISO2;
+                existingPlayer.NationalityISO3 = vmPlayer.NationalityISO3;
                 existingPlayer.DateOfBirth = vmPlayer.DateOfBirth;
 
                 existingPlayer.Position = vmPlayer.Position;
+                existingPlayer.Number = vmPlayer.Number;
+
                 existingPlayer.Role = vmPlayer.Role;
                 existingPlayer.TeamId = vmPlayer.TeamId;
 

@@ -1,9 +1,12 @@
 ﻿@using FootballTeams.Web.Models.ViewModels
+@using FootballTeams.Domain.AdditionalDetail
 @model TeamMemberViewModel
 @{
     ViewBag.Title = "Manager Details";
 
     var dateOfBirth = Model.DateOfBirth.HasValue ? Model.DateOfBirth.Value.ToString("dd/MM/yyyy") : "na";
+
+    var isGlobalManager = User.IsInRole("GlobalManager");
 }
 
 <h1>@Model.Fullname</h1>
@@ -13,38 +16,61 @@
     <div class="col-md-6">
         <div class="card">
             <div class="card-header">
+                <small>Football Teams Details</small>
                 <h5 class="mb-0">Details</h5>
             </div>
-            <div class="table-responsive">
-                <table class="table">
-                    <tbody>
-                        <tr>
-                            <td>Current Team</td>
-                            <td>
-                                @if (Model.Team != null)
-                                {
-                                    <a href="@Url.Action("Details", "Team", new { id = Model.Team.Id })">@Model.Team.Name</a>
-                                }
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Age</td>
-                            <td>@Model.Age()</td>
-                        </tr>
-                        <tr>
-                            <td>Date of birth</td>
-                            <td>@dateOfBirth</td>
-                        </tr>
-                        <tr>
-                            <td>Nationality</td>
-                            <td>@Model.Nationality</td>
-                        </tr>
-                    </tbody>
-                </table>
+
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td>Team</td>
+                                <td>
+                                    @if (Model.Team != null)
+                                    {
+                                        <a href="@Url.Action("Details", "Team", new { id = Model.Team.Id })">@Model.Team.Name</a>
+                                        <img class="team-badge fl mr" src="@Model.Team.ImageUrl">
+                                    }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Age</td>
+                                <td>@Model.Age()</td>
+                            </tr>
+                            <tr>
+                                <td>Date of birth</td>
+                                <td>@dateOfBirth</td>
+                            </tr>
+                            <tr>
+                                <td>Nationality</td>
+                                <td>
+                                    <span class="flag @Model.NationalityISO2"></span>
+                                    @Model.Nationality
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <div class="card-body"></div>
         </div>
     </div>
-    <div class="col-md-6"></div>
+    <div class="col-md-6">
+        @Html.DisplayFor(x => Model.AdditionalDetails)
+    </div>
 </div>
+
+<div class="row">
+    <div class="col">
+        @if (isGlobalManager)
+        {
+            <a class="btn btn-info  float-right mt-3 mb-3" role="button" href="@Url.Action("Edit",new { id= Model.Id})">Edit</a>
+        }
+        <a class="btn btn-secondary  mt-3 mb-3" role="button" href="@Url.Action("Index")">Back to List</a>
+    </div>
+    <div class="col"></div>
+</div>
+
+
+
 

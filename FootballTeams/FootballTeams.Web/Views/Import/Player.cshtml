@@ -1,0 +1,83 @@
+﻿@using FootballTeams.Domain.AdditionalDetail;
+@using FootballTeams.Web.Models.ViewModels;
+@using FootballTeams.Domain.Teams;
+@model IEnumerable<TeamMemberViewModel>
+@{
+    ViewBag.Title = "Imported Players";
+}
+
+<h1>
+    Imported Players
+</h1>
+<p>
+    @Model.Count() Parsed results
+</p>
+<a class="btn btn-secondary  mt-3 mb-3" role="button" href="@Url.Action("Index")">Back to Importers</a>
+
+<div class="row">
+    <div class="col-md-6">
+        <h1>Players</h1>
+    </div>
+    <div class="col-md-6"></div>
+</div>
+
+
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead class="thead-light">
+            <tr>
+                <th>No. </th>
+                <th>Fullname</th>
+                <th>Position</th>
+                <th>Nationality</th>
+                <th>Team</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var player in Model)
+            {
+                <tr>
+                    <td>
+                        @player.Number
+                    </td>
+                    <td>
+                        <a href="@player.AdditionalDetails.GetDetail("Player Profile").Url" target="_blank">@player.Fullname</a>
+                    </td>
+                    <td>@player.Position</td>
+                    <td>
+                        <div class="row">
+                            <div class="col col-3">
+                                <img class="flag-single" src="@player.NationalityFlagUrl(Url)">
+                            </div>
+                            <div class="col">
+
+                                <a target="_blank" href="http://www.fao.org/countryprofiles/index/en/?iso3=@player.NationalityISO3">@player.Nationality</a>
+
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        @if (player.Team != null)
+                        {
+                            <a href="@Url.Action("Details","Team",new { id = player.Team.Id})"> @player.Team.Name</a>
+
+                            <img class="team-badge fl mr" src="@player.Team.ImageUrl">
+                        }
+                        else
+                        {
+                            //todo: remove this hardcoded image
+                            //todo: rename defautl-team.ong to no-team.png
+                            <img class="team-badge fl mr" src="@Url.Content("~/content/img/teams/no-team.png")" title="No Team" />
+                        }
+
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+

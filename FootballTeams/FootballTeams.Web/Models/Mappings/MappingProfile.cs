@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FootballTeams.Domain.Countries;
 using FootballTeams.Domain.Matches;
 using FootballTeams.Domain.TeamMembers;
 using FootballTeams.Domain.Teams;
@@ -22,6 +23,9 @@ namespace FootballTeams.Web.Models.Mappings
 
             CreateMap<Match, MatchViewModel>()
               .ReverseMap();
+
+            CreateMap<Country, CountryViewModel>()
+            .ReverseMap();
         }
     }
 }

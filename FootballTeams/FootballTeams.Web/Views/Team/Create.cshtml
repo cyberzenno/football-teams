@@ -4,6 +4,8 @@
 
     var availableManagers = ViewBag.AvailableManagers as List<TeamMemberViewModel>;
     var availablePlayers = ViewBag.AvailablePlayers as List<TeamMemberViewModel>;
+
+    var defaultTeamImageUrl = Url.Content("~/content/img/teams/default-team.png");
 }
 
 <form method="post" action="@Url.Action("Create")">
@@ -14,11 +16,11 @@
     <div class="row">
         <div class="col-md-6">
             <h1>Photo</h1>
-            <img src="https://via.placeholder.com/400x250?text=New_Team">
+            <img src="@defaultTeamImageUrl">
 
             <div class="form-group mt-3">
                 <label>Image Url</label>
-                <input class="form-control" type="text" name="ImageUrl">
+                <input class="form-control" type="text" name="ImageUrl" value="@defaultTeamImageUrl">
             </div>
 
         </div>

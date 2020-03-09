@@ -1,0 +1,90 @@
+﻿@using FootballTeams.Domain.AdditionalDetail
+@model AdditionalDetails
+
+@if (Model.IsThereAnyValue())
+{
+    <div class="card">
+        <div class="card-header">
+
+            @if (Model.IsReal())
+            {
+                <small>
+                    Imported From
+                </small>
+
+                <h5 class="mb-0">@Model.GetDetailValueOrDefault("League") @Model.GetDetailValueOrDefault("Country")</h5>
+            }
+            else
+            {
+                <small>
+                    Additional Details
+                </small>
+                <h5 class="mb-0">Football Teams Original</h5>
+            }
+
+        </div>
+        <div class="table-responsive">
+            <table class="table">
+                <tbody>
+
+                    @foreach (var detail in Model.NamedDetails)
+                    {
+                        <tr>
+                            <td class="w-50">@detail.Name</td>
+                            <td>
+                                @if (detail.IsLink())
+                                {
+                                    <a href="@detail.Url" target="_blank">@detail.Value</a>
+                                }
+                                else
+                                {
+                                    @detail.Value
+                                }
+                            </td>
+                        </tr>
+                    }
+
+                    @foreach (var timeStamp in Model.NamedTimeStamps)
+                    {
+                        <tr>
+                            <td>@timeStamp.Name</td>
+                            <td>@(timeStamp.Value?.ToString("dd/MM/yyyy"))</td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+        <div class="card-body"></div>
+    </div>
+}
+else
+{
+    <div class="card">
+        <div class="card-header">
+
+            <small>
+                Additional Details
+            </small>
+
+            <h5 class="mb-0">Football Teams Original</h5>
+        </div>
+        <div class="table-responsive">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td class="w-50">No Details</td>
+                        <td>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+        <div class="card-body"></div>
+    </div>
+
+}
+
+
+

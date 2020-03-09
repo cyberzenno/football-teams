@@ -24,7 +24,11 @@ namespace FootballTeams.Domain.TeamMembers
         public int Id { get; set; }
 
         public string Fullname { get; set; }
+
         public string Nationality { get; set; }
+        public string NationalityISO2 { get; set; }
+        public string NationalityISO3 { get; set; }
+
         public DateTime? DateOfBirth { get; set; }
 
 
@@ -33,5 +37,8 @@ namespace FootballTeams.Domain.TeamMembers
 
         public int? TeamId { get; set; }
         public Team Team { get; set; }
+
+        public int? Number { get; set; }
+        public string AdditionalDetailsJson { get; set; }
     }
 }

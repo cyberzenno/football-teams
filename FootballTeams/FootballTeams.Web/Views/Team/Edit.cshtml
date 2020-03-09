@@ -3,8 +3,8 @@
 @{
     ViewBag.Title = "Edit Team";
 
-
-    var imageUrl = Model.ImageUrl ?? "https://via.placeholder.com/400x250/17a2b8/fff?text=" + Model.Name;
+    var mainImageUrl = Model.ImageUrlOrDefault(Url);
+    var teamImageUrl = Model.ImageUrl;
 
 
     var availableManagers = ViewBag.AvailableManagers as List<TeamMemberViewModel>;
@@ -20,11 +20,11 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <h1>Photo</h1><img src="@imageUrl">
+                <h1>Photo</h1><img src="@mainImageUrl">
 
                 <div class="form-group mt-3">
                     <label>Image Url</label>
-                    <input class="form-control" type="text" name="ImageUrl" value="@imageUrl">
+                    <input class="form-control" type="text" name="ImageUrl" value="@teamImageUrl">
                 </div>
 
             </div>
@@ -112,7 +112,7 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-6"><a class="btn btn-secondary mt-2" role="button" href="@Url.Action(" Index")">Cancel</a></div>
+            <div class="col-md-6"><a class="btn btn-secondary mt-2" role="button" href="@Url.Action("Index")">Cancel</a></div>
             <div class="col-md-6">
                 <button class="btn btn-info float-right mt-4" type="submit">Save Details</button>
             </div>

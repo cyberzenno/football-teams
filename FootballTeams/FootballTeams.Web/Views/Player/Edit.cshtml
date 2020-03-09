@@ -19,8 +19,17 @@
                 <input class="form-control" type="text" placeholder="Fullname" name="Fullname" value="@Model.Fullname">
             </div>
             <div class="form-group">
+
                 <label>Nationality</label>
-                <input class="form-control" type="text" placeholder="Nationality" name="Nationality" value="@Model.Nationality">
+                <input id="nationality" class="form-control" type="text" placeholder="Nationality" name="Nationality" autocomplete="no" value="@Model.Nationality">
+                <input id="nationalityISO2" type="hidden" name="NationalityISO2" value="@Model.NationalityISO2">
+                <input id="nationalityISO3" type="hidden" name="NationalityISO3" value="@Model.NationalityISO3">
+
+                <div class="dropdown" style="cursor:pointer;">
+                    <div id="nationality-dropdown" class="dropdown-menu" role="menu">
+
+                    </div>
+                </div>
             </div>
             <div class="form-group">
                 <label>Date of birth</label>
@@ -50,7 +59,7 @@
         <div class="col-md-6">
             <div class="form-group">
                 <h1>Team</h1>
-                <label>Please select the team to join (wip)</label>
+                <label>Please select the team to join </label>
                 <select class="form-control" name="TeamId">
                     <option value="">No Team</option>
 
@@ -74,11 +83,16 @@
                     <option value="3" @((int)Model.Position == 3 ? "selected" : "")>Midfielder</option>
                     <option value="4" @((int)Model.Position == 4 ? "selected" : "")>Forward</option>
                 </select>
-
-                <div class="col"></div>
+            </div>
+            <div class="form-group">
+                <label>Number</label>
+                <input class="form-control" type="text" name="Number" autocomplete="no" value="@Model.Number">
             </div>
         </div>
     </div>
 
 </form>
 
+@{
+    Html.RenderPartial("~/Views/Shared/_NationalityLookupScript.cshtml");
+}

@@ -1,0 +1,47 @@
+th .w-10 {
+    width: 10% !important;
+}
+
+.w-5 {
+    width: 5% !important;
+}
+
+.w-35 {
+    width: 35% !important;
+}
+
+.card-body {
+    padding: 0px;
+}
+
+.card {
+    margin-bottom: 1rem;
+}
+
+.team-badge {
+    max-width: 40px;
+}
+
+    .team-badge.fr {
+        float: right;
+    }
+
+    .team-badge.fl {
+        float: left;
+    }
+
+    .team-badge.mr {
+        margin-right: 20px;
+    }
+
+@media (min-width: 770px) {
+    .mt-5_5 {
+        margin-top: 3.4rem !important;
+    }
+}
+
+.flag-single {
+    height: 20px;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+    margin-right: 20px;
+}

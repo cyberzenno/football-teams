@@ -13,6 +13,7 @@ namespace FootballTeams.Domain.Teams
         public string City { get; set; }
         public string Country { get; set; }
         public string ImageUrl { get; set; }
+        public string AdditionalDetailsJson { get; set; }
 
         public List<TeamMember> Members { get; set; }
 

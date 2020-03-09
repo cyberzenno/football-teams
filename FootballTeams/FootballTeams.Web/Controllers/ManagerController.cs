@@ -3,6 +3,7 @@ using FootballTeams.Web.Models.Helpers;
 using FootballTeams.Web.Models.ViewModels;
 using System.Web.Mvc;
 using FootballTeams.Domain.TeamMembers;
+using FootballTeams.Domain.AdditionalDetail;
 
 namespace FootballTeams.Web.Controllers
 {
@@ -48,6 +49,8 @@ namespace FootballTeams.Web.Controllers
             {
                 var manager = vmManager.ToDataModel();
 
+                manager.AdditionalDetailsJson = AdditionalDetailsFactory.CreateFootbalTeamsLocalCreationDetails().ToJson();
+
                 manager.Role = MemberRole.Manager;
 
                 _memberRepository.Add(manager);
@@ -85,6 +88,8 @@ namespace FootballTeams.Web.Controllers
 
                 existingManager.Fullname = vmManager.Fullname;
                 existingManager.Nationality = vmManager.Nationality;
+                existingManager.NationalityISO2 = vmManager.NationalityISO2;
+                existingManager.NationalityISO3 = vmManager.NationalityISO3;
                 existingManager.DateOfBirth = vmManager.DateOfBirth;
 
                 existingManager.Position = vmManager.Position;
@@ -102,10 +107,8 @@ namespace FootballTeams.Web.Controllers
                     _teamRepository.Update(existingTeam);
                 }
 
-
                 AlertSuccess("Saved", "Manager have been changed to Player");
                 return RedirectToAction("Index");
-
             }
 
             ViewBag.AvailableTeams = _teamRepository.GetAll().ToViewModel();
@@ -113,7 +116,5 @@ namespace FootballTeams.Web.Controllers
             AlertDanger("User Role error", "Unknown use role path");
             return RedirectToAction("Index");
         }
-
-
     }
 }

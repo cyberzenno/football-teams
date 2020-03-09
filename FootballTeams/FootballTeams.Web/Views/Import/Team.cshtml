@@ -1,0 +1,75 @@
+﻿@using FootballTeams.Domain.AdditionalDetail;
+@using FootballTeams.Web.Models.ViewModels;
+@using FootballTeams.Domain.Teams;
+@model IEnumerable<TeamViewModel>
+@{
+    ViewBag.Title = "Imported Teams";
+}
+
+<h1>
+    Imported Teams
+</h1>
+<p>
+    @Model.Count() Parsed results
+</p>
+<a class="btn btn-secondary  mt-3 mb-3" role="button" href="@Url.Action("Index")">Back to Importers</a>
+
+@foreach (var t in Model)
+{
+
+
+    <h1>@t.Name</h1>
+
+    <div class="row">
+        <div class="col-md-4"><img class="d-block mx-auto" src="@t.Name.ImageUrlOrDefault(Url)" width="400"></div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <small>Football Teams Details</small>
+                    <h5 class="mb-0">Team Details</h5>
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td>City</td>
+                                <td>@t.City</td>
+                            </tr>
+                            <tr>
+                                <td>Current Manager</td>
+                                <td>
+                                    @{
+                                        var manager = t.Manager();
+                                    }
+
+                                    @if (manager != null)
+                                    {
+                                        <a href="@Url.Action("Details", "Manager", new { id = manager.Id })">@manager.Fullname</a>
+                                    }
+                                    else
+                                    {
+                                        <span>na</span>
+                                    }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Matches Played</td>
+                                <td>@t.NumberOfMatchesPlayed()</td>
+                            </tr>
+                            <tr>
+                                <td>Points</td>
+                                <td>@t.Points()</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-body"></div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            @Html.DisplayFor(x => t.AdditionalDetails)
+        </div>
+    </div>
+
+}
+

@@ -1,0 +1,66 @@
+﻿<!--TODO: HIGH PRIORITY: move this stuff on proper JS-->
+<!--This is to avoid "Partial View - Render Scripts" complication (at least for now)-->
+
+<!--I want to use this 'brutal' approch, in order to see how AngularJS can make life easiery (if really so)-->
+<template id="lookupResultTemplate">
+    <span class="dropdown-item" onclick="setNationality(this)"
+          data-iso2="#ISO2"
+          data-iso3="#ISO3">#ShortName</span>
+</template>
+
+<script>
+
+    //equivalent to jQuery(document).ready(...)
+    document.addEventListener("DOMContentLoaded", function () {
+
+        $('#nationality').on('keyup', lookupCountries)
+    });
+
+    function lookupCountries() {
+
+        if (event.target.value === "") {
+            return;
+        }
+
+        $.ajax({
+
+            url: SETTINGS.CountryAPI.CountryAPI_Lookup + event.target.value,
+
+            type: 'GET',
+            success: function (data) {
+                populateResults(data);
+            },
+            error: function (response) {
+
+            }
+        })
+    }
+
+    function populateResults(data) {
+
+        $('#nationality-dropdown').html("");
+
+        for (var i in data) {
+
+            var spanHtml = document.querySelector('#lookupResultTemplate').innerHTML;
+
+            spanHtml = spanHtml.replace(/#ShortName/g, data[i].ShortName);
+            spanHtml = spanHtml.replace(/#ISO3/g, data[i].ISO3);
+            spanHtml = spanHtml.replace(/#ISO2/g, data[i].ISO2);
+
+            $('#nationality-dropdown').append(spanHtml);
+        }
+
+        $('#nationality-dropdown').addClass("show");
+    }
+
+    function setNationality(e) {
+
+        $('#nationality').val(e.innerText);
+        $('#nationalityISO2').val(e.getAttribute("data-iso2"))
+        $('#nationalityISO3').val(e.getAttribute("data-iso3"))
+
+        $('#nationality-dropdown').removeClass("show");
+    }
+
+</script>
