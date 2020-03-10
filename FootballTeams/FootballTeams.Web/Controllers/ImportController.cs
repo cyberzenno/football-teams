@@ -10,11 +10,6 @@ namespace FootballTeams.Web.Controllers
 {
     public class ImportController : BaseController
     {
-        private readonly ICountryRepository countryRepository;
-        private readonly ITeamRepository teamRepository;
-        private readonly ITeamMemberRepository teamMemberRepository;
-
-
         private readonly ICountryDataImporter countryDataImporter;
         private readonly ITeamDataImporter teamDataImporter;
         private readonly IPlayerDataImporter playerDataImporter;
@@ -22,18 +17,11 @@ namespace FootballTeams.Web.Controllers
 
 
         public ImportController(
-            ICountryRepository countryRepository,
-            ITeamRepository teamRepository,
-            ITeamMemberRepository teamMemberRepository,
             ICountryDataImporter countryDataImporter,
             ITeamDataImporter teamDataImporter,
             IPlayerDataImporter playerDataImporter,
             IManagerDataImporter managerDataImporter)
         {
-            this.countryRepository = countryRepository;
-            this.teamRepository = teamRepository;
-            this.teamMemberRepository = teamMemberRepository;
-
             this.countryDataImporter = countryDataImporter;
             this.teamDataImporter = teamDataImporter;
             this.playerDataImporter = playerDataImporter;
@@ -90,7 +78,7 @@ namespace FootballTeams.Web.Controllers
             teamDataImporter.SaveRecords(teams);
 
             AlertSuccess("Teams Imported", "Keep rockin'!");
-
+            
             return RedirectToAction("Index", "Team");
         }
 
