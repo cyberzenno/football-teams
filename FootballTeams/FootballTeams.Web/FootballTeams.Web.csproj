@@ -524,9 +524,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
-    <Content Include="App_Data\FootballTeams_VDD_Map.pdf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -559,6 +556,8 @@
     <Content Include="Views\Import\Index.cshtml" />
     <Content Include="Views\Import\Manager.cshtml" />
     <Content Include="Views\Country\_CountrySearchScript.cshtml" />
+    <Content Include="Views\Vdd\Map.cshtml" />
+    <Content Include="Views\Vdd\_MapScript.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -566,7 +565,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FootballTeams.Data.Importer\FootballTeams.Data.Importer.csproj">
       <Project>{0075EF7F-3FFC-4633-8864-7ADC95EC6D43}</Project>

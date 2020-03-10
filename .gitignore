@@ -8,5 +8,5 @@ Migrations
 
 SQL
 FootballTeams/FootballTeams.Web/Content/vendor
-FootballTeams/FootballTeams.Web/App_Data/FootballTeams_VDD_Map.pdf
 FootballTeams/FootballTeams.Web/Views/Shared/_GA.cshtml
+FootballTeams/FootballTeams.Web/Views/Vdd/_MapScript.cshtml

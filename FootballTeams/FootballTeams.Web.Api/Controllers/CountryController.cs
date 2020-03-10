@@ -17,7 +17,7 @@ namespace FootballTeams.Web.Api.Controllers
         [Route("api/pulse")]
         public IHttpActionResult GetPulse()
         {
-            return Ok("Pulse OK");
+            return Ok("It's Alive!");
         }
 
 
