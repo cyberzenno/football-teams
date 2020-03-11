@@ -37,7 +37,7 @@ namespace FootballTeams.Web.IoC
 
 
             //IMPORTERS
-            container.Register(Component.For<IRawDataPathsProvider>().ImplementedBy<RealRawDataPathsProvider>());
+            container.Register(Component.For<IRawDataPathsProvider>().ImplementedBy<SampleRawDataPathsProvider>());
 
             container.Register(Component.For<ICountryDataParser>().ImplementedBy<CountryDataParser>());
             container.Register(Component.For<ICountryDataImporter>().ImplementedBy<CountryDataImporter>());

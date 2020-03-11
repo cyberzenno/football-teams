@@ -48,7 +48,7 @@ namespace FootballTeams.Data.Importer.CountryData
 
                 if (faoCountry != null)
                 {
-                    fifaCountry.ExtendedName = faoCountry.Name;
+                    fifaCountry.ExtendedName = faoCountry.ExtendedName;
                     fifaCountry.OfficialName = faoCountry.OfficialName;
                     fifaCountry.ISO3 = faoCountry.ISO3;
                     fifaCountry.ISO2 = faoCountry.ISO2;
