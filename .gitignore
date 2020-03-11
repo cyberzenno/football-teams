@@ -4,9 +4,15 @@ PublishProfiles
 packages
 obj
 bin
-Migrations
-img
+
 SQL
+Migrations
+
+FootballTeams/FootballTeams.Web/Content/img
 FootballTeams/FootballTeams.Web/Content/vendor
+FootballTeams/FootballTeams.Web/Content/RawData/LeagueData/Italy/*
+!_SampleData
+
 FootballTeams/FootballTeams.Web/Views/Shared/_GA.cshtml
 FootballTeams/FootballTeams.Web/Views/Vdd/_MapScript.cshtml
+
