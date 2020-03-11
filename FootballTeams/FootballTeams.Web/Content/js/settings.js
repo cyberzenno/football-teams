@@ -21,6 +21,6 @@ var _settings_CountryApi_Dev = {
 
 var SETTINGS = {
 
-    CountryAPI: _settings_CountryApi_Local
+    CountryAPI: _settings_CountryApi_Dev
 
 };

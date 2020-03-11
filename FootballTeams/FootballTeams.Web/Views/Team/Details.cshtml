@@ -143,7 +143,10 @@
                             <td>@player.Age()</td>
                             <td>@player.Position</td>
                             <td>
-                                <img class="flag-single" src="@player.NationalityFlagUrl(Url)">
+                                @if (player.NationalityFIFA != null)
+                                {
+                                    <img class="flag-single mr-3" src="@Url.Content($"~/content/img/flags/flags-1/{player.NationalityFIFA}.png")">
+                                }
                                 @player.Nationality
                             </td>
                         </tr>

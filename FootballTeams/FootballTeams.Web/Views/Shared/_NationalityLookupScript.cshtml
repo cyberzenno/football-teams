@@ -12,7 +12,7 @@
     //equivalent to jQuery(document).ready(...)
     document.addEventListener("DOMContentLoaded", function () {
 
-        $('#nationality').on('keyup', lookupCountries)
+        $('#Nationality').on('keyup', lookupCountries)
     });
 
     function lookupCountries() {
@@ -54,8 +54,8 @@
 
     function setNationality(e) {
 
-        $('#nationality').val(e.innerText);
-        $('#nationalityFIFA').val(e.getAttribute("data-fifa"));
+        $('#Nationality').val(e.innerText);
+        $('#NationalityFIFA').val(e.getAttribute("data-fifa"));
 
         $('#nationality-dropdown').removeClass("show");
     }
