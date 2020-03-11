@@ -33,15 +33,13 @@ namespace FootballTeams.Data.Importer.CountryData
 
                 try
                 {
-                    country.ShortName = node.SelectSingleNode(".//td/a").InnerText;
+                    country.ExtendedName = node.SelectSingleNode(".//td/a").InnerText;
                     country.OfficialName = node.SelectSingleNode(".//td[@class='official']").InnerText;
                     country.ISO3 = node.SelectSingleNode(".//td[@class='iso3']").InnerText;
                     country.ISO2 = node.SelectSingleNode(".//td[@class='iso2']").InnerText;
                     country.UNI = node.SelectSingleNode(".//td[@class='uni']").InnerText;
 
                     country.OriginUrl = node.SelectSingleNode(".//td/a").GetAttributeValue("href", "");
-                    country.FlagUrl = $"~/content/img/flags/{country.ISO3.ToUpper()}.gif";
-                    country.FlagBase64 = "";//todo: download the flag as Base64, so we can do it only once
 
                     results.Add(country);
                 }
@@ -69,15 +67,17 @@ namespace FootballTeams.Data.Importer.CountryData
 
                 try
                 {
-                    country.ShortName = CleanUp(node.SelectSingleNode(".//td/span/a").InnerText);
-                    country.FifaAssociation = CleanUp(node.SelectSingleNode(".//td/span/a").Attributes["title"].Value);
+                    country.Name = CleanUp(node.SelectSingleNode(".//td/span/a").InnerText);
                     country.FIFA = CleanUp(node.SelectSingleNode(".//td[2]").InnerText);
+                    country.FifaAssociation = CleanUp(node.SelectSingleNode(".//td/span/a").Attributes["title"].Value);
+                    country.FifaAssociationUrl = $"https://www.fifa.com/associations/association/{country.FIFA}/";
+
 
                     results.Add(country);
                 }
                 catch (Exception ex)
                 {
-                    country.ShortName = "ex";
+                    country.Name = "ex";
                 }
             }
 

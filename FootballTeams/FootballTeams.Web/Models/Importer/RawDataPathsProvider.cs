@@ -9,7 +9,7 @@ namespace FootballTeams.Web.Models.Importer
 {
     public class SampleRawDataPathsProvider : IRawDataPathsProvider
     {
-        public string CountryCodesFilePath => "Content/RawData/CountryData/CountryCodes.html".GetFullPath();
+        public string FaoCountryCodesFilePath => "Content/RawData/CountryData/FaoCountryCodes.html".GetFullPath();
 
         public string FifaCountryCodesFilePath => "Content/RawData/CountryData/FifaCountryCodes.html".GetFullPath();
 
@@ -22,7 +22,7 @@ namespace FootballTeams.Web.Models.Importer
 
     public class RealRawDataPathsProvider : IRawDataPathsProvider
     {
-        public string CountryCodesFilePath => "Content/RawData/CountryData/CountryCodes.html".GetFullPath();
+        public string FaoCountryCodesFilePath => "Content/RawData/CountryData/FaoCountryCodes.html".GetFullPath();
 
         public string FifaCountryCodesFilePath => "Content/RawData/CountryData/FifaCountryCodes.html".GetFullPath();
 

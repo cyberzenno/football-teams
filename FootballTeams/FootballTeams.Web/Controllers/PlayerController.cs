@@ -87,8 +87,7 @@ namespace FootballTeams.Web.Controllers
             {
                 existingPlayer.Fullname = vmPlayer.Fullname;
                 existingPlayer.Nationality = vmPlayer.Nationality;
-                existingPlayer.NationalityISO2 = vmPlayer.NationalityISO2;
-                existingPlayer.NationalityISO3 = vmPlayer.NationalityISO3;
+                existingPlayer.NationalityFIFA = vmPlayer.NationalityFIFA;
                 existingPlayer.DateOfBirth = vmPlayer.DateOfBirth;
 
                 existingPlayer.Position = vmPlayer.Position;

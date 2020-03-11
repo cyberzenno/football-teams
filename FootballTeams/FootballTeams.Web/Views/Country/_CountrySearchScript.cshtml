@@ -1,24 +1,28 @@
 ﻿<!--TODO: HIGH PRIORITY: move this stuff on proper JS-->
 <!--This is to avoid "Partial View - Render Scripts" complication (at least for now)-->
-
 <!--I want to use this 'brutal' approch, in order to see how AngularJS can make life easiery (if really so)-->
 <template id="searchResultTemplate">
     <tr>
         <td>
-            <img class="shadow" src="@Url.Content($"~/Content/img/flags/")#ISO3.gif" ; style="height: 20px;" />
+            <img class="shadow" src="@Url.Content($"~/Content/img/flags/flags-1/")#FIFA.png" ; style="height: 20px;" />
         </td>
         <td>
             <span class="flag #ISO2"></span>
         </td>
         <td>
-            <a href="#OriginUrl" target="_blank">#ShortName</a>
+            <a href="#OriginUrl" target="_blank">#Name</a>
         </td>
         <td>#OfficialName</td>
+        <td>#FIFA</td>
         <td>#ISO3</td>
         <td>#ISO2</td>
         <td>#UNI</td>
-        <td>#FIFA</td>
-        <td>#FifaAssociation</td>
+        <td class="text-center">
+            <a href="#AssociationUrl" target="_blank">
+                <img class="m-3 mx-auto d-block" src="@Url.Content($"~/Content/img/badges/fifa/ass-1/")#FIFA.png" )">
+                #FifaAssociation
+            </a>
+        </td>
     </tr>
 </template>
 
@@ -31,7 +35,7 @@
     function searchCountry(event) {
 
         var searchUrl = SETTINGS.CountryAPI.CountryAPI_Search + event.target.value;
-      
+
 
         if (event.target.value === "") {
             searchUrl = SETTINGS.CountryAPI.CountryAPI_All;
@@ -55,20 +59,25 @@
 
     function populateResults(data) {
 
-        $('#countryTableRecords').html("");
+
 
         for (var i in data) {
 
             var rowHtml = document.querySelector('#searchResultTemplate').innerHTML;
 
-            rowHtml = rowHtml.replace(/#ShortName/g, data[i].ShortName);
-            rowHtml = rowHtml.replace(/#OfficialName/g, data[i].OfficialName);
-            rowHtml = rowHtml.replace(/#ISO3/g, data[i].ISO3);
-            rowHtml = rowHtml.replace(/#ISO2/g, data[i].ISO2);
-            rowHtml = rowHtml.replace(/#UNI/g, data[i].UNI);
+            rowHtml = rowHtml.replace(/#Name/g, data[i].Name);
             rowHtml = rowHtml.replace(/#FIFA/g, data[i].FIFA);
+            rowHtml = rowHtml.replace(/#OfficialName/g, data[i].OfficialName ?? "");
+            rowHtml = rowHtml.replace(/#ISO3/g, data[i].ISO3 ?? "");
+            rowHtml = rowHtml.replace(/#ISO2/g, data[i].ISO2 ?? "");
+            rowHtml = rowHtml.replace(/#UNI/g, data[i].UNI ?? "");
             rowHtml = rowHtml.replace(/#FifaAssociation/g, data[i].FifaAssociation);
-            rowHtml = rowHtml.replace(/#OriginUrl/g, data[i].OriginUrl);
+            rowHtml = rowHtml.replace(/#AssociationUrl/g, "https://www.fifa.com/associations/association/" + data[i].FIFA);
+            rowHtml = rowHtml.replace(/#OriginUrl/g, data[i].OriginUrl ?? "https://www.fifa.com/associations/association/" + data[i].FIFA);
+
+            if (i == 0) {
+                $('#countryTableRecords').html("");
+            }
 
             $('#countryTableRecords').append(rowHtml);
         }

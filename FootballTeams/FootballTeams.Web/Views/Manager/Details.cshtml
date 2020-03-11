@@ -45,8 +45,11 @@
                             <tr>
                                 <td>Nationality</td>
                                 <td>
-                                    <span class="flag @Model.NationalityISO2"></span>
-                                    @Model.Nationality
+                                    @if (Model.NationalityFIFA != null)
+                                    {
+                                        <img class="flag-single mr-3" src="@Url.Content($"~/content/img/flags/flags-1/{Model.NationalityFIFA}.png")">
+                                        <a href="https://www.fifa.com/associations/association/@Model.NationalityFIFA" target="_blank">@Model.Nationality</a>
+                                    }
                                 </td>
                             </tr>
                         </tbody>

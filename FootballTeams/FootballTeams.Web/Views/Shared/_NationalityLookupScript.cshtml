@@ -4,8 +4,7 @@
 <!--I want to use this 'brutal' approch, in order to see how AngularJS can make life easiery (if really so)-->
 <template id="lookupResultTemplate">
     <span class="dropdown-item" onclick="setNationality(this)"
-          data-iso2="#ISO2"
-          data-iso3="#ISO3">#ShortName</span>
+          data-fifa="#FIFA">#Name</span>
 </template>
 
 <script>
@@ -44,9 +43,8 @@
 
             var spanHtml = document.querySelector('#lookupResultTemplate').innerHTML;
 
-            spanHtml = spanHtml.replace(/#ShortName/g, data[i].ShortName);
-            spanHtml = spanHtml.replace(/#ISO3/g, data[i].ISO3);
-            spanHtml = spanHtml.replace(/#ISO2/g, data[i].ISO2);
+            spanHtml = spanHtml.replace(/#Name/g, data[i].Name);
+            spanHtml = spanHtml.replace(/#FIFA/g, data[i].FIFA);
 
             $('#nationality-dropdown').append(spanHtml);
         }
@@ -57,8 +55,7 @@
     function setNationality(e) {
 
         $('#nationality').val(e.innerText);
-        $('#nationalityISO2').val(e.getAttribute("data-iso2"))
-        $('#nationalityISO3').val(e.getAttribute("data-iso3"))
+        $('#nationalityFIFA').val(e.getAttribute("data-fifa"));
 
         $('#nationality-dropdown').removeClass("show");
     }

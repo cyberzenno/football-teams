@@ -26,8 +26,7 @@ namespace FootballTeams.Domain.TeamMembers
         public string Fullname { get; set; }
 
         public string Nationality { get; set; }
-        public string NationalityISO2 { get; set; }
-        public string NationalityISO3 { get; set; }
+        public string NationalityFIFA { get; set; }
 
         public DateTime? DateOfBirth { get; set; }
 

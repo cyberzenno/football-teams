@@ -88,8 +88,7 @@ namespace FootballTeams.Web.Controllers
 
                 existingManager.Fullname = vmManager.Fullname;
                 existingManager.Nationality = vmManager.Nationality;
-                existingManager.NationalityISO2 = vmManager.NationalityISO2;
-                existingManager.NationalityISO3 = vmManager.NationalityISO3;
+                existingManager.NationalityFIFA = vmManager.NationalityFIFA;
                 existingManager.DateOfBirth = vmManager.DateOfBirth;
 
                 existingManager.Position = vmManager.Position;

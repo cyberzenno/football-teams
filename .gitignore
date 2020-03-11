@@ -5,7 +5,7 @@ packages
 obj
 bin
 Migrations
-
+img
 SQL
 FootballTeams/FootballTeams.Web/Content/vendor
 FootballTeams/FootballTeams.Web/Views/Shared/_GA.cshtml

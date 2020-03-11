@@ -33,20 +33,28 @@ namespace FootballTeams.Web.Controllers
             return View();
         }
 
+        public ActionResult FaoCountry()
+        {
+            var countries = countryDataImporter.GetAllFaoRecords();
+
+            return View("Country", countries.ToViewModel());
+        }
+
         public ActionResult FifaCountry()
         {
-            var fifaCountries = countryDataImporter.GetAllFifaRecords();
+            var countries = countryDataImporter.GetAllFifaRecords();
 
-            return View("Country", fifaCountries.ToViewModel());
+            return View("Country", countries.ToViewModel());
         }
 
         public ActionResult Country()
         {
             var countries = countryDataImporter.GetAllRecords();
 
-            return View(countries.ToViewModel());
+            return View("Country", countries.ToViewModel());
         }
-       
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "GlobalManager")]

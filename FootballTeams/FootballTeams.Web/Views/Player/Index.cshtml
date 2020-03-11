@@ -7,7 +7,7 @@
 
     var isGlobalManager = User.IsInRole("GlobalManager");
 
-    var fifaAssociationUrl = ConfigurationManager.AppSettings["FifaAssociationUrl"];
+    var fifaAssociationUrl = "https://www.fifa.com/associations/association/"; //ConfigurationManager.AppSettings["FifaAssociationUrl"];
 }
 
 <div class="row">
@@ -57,13 +57,14 @@
                     <td>
                         <div class="row">
                             <div class="col col-3">
-                                <img class="flag-single" src="@player.NationalityFlagUrl(Url)">
+                                @if (player.NationalityFIFA != null)
+                                {
+                                    <img class="flag-single" src="@Url.Content($"~/content/img/flags/flags-1/{player.NationalityFIFA}.png")">
+                                }
                             </div>
                             <div class="col">
 
-                                <a target="_blank" href="@($"{fifaAssociationUrl}{player.AdditionalDetails.GetDetailValueOrDefault("FIFA")}")">@player.Nationality</a>
-
-
+                                <a target="_blank" href="@($"{fifaAssociationUrl}{player.NationalityFIFA}")">@player.Nationality</a>
 
                             </div>
                         </div>
@@ -90,7 +91,7 @@
                         }
                     </td>
                 </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+            }
+        </tbody>
+    </table>
+</div>

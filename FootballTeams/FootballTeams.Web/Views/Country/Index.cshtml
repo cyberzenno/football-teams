@@ -34,12 +34,12 @@
             <tr>
                 <th>Flag Single</th>
                 <th>Flag Sprite</th>
-                <th>Short Name</th>
-                <th>Official Name</th>
+                <th>Name</th>
+                <th class="w-20">Official Name</th>
+                <th>FIFA</th>
                 <th>ISO3</th>
                 <th>ISO2</th>
                 <th>UNI</th>
-                <th>FIFA</th>
                 <th>Fifa Association</th>
             </tr>
         </thead>
@@ -48,25 +48,24 @@
             {
                 <tr>
                     <td>
-                        <img class="shadow" src="@Url.Content(country.FlagUrl)" style="height: 20px;">
+                        <img class="shadow" src="@Url.Content($"~/Content/img/flags/flags-1/{country.FIFA}.png")" style="height: 20px;">
                     </td>
                     <td>
                         <span class="flag @country.ISO2"></span>
                     </td>
                     <td>
-                        <a href="@country.OriginUrl" target="_blank">@country.ShortName</a>
+                        <a href="@country.OriginUrl" target="_blank">@country.Name</a>
                     </td>
                     <td>@country.OfficialName</td>
+                    <td>@country.FIFA</td>
                     <td>@country.ISO3</td>
                     <td>@country.ISO2</td>
                     <td>@country.UNI</td>
-                    <td>@country.FIFA</td>
-                    <td>
-                        @if (string.IsNullOrEmpty(country.FIFA))
-                        {
-                            <span class="badge badge-warning" title="No Fifa Code">No FIFA Code</span>
-                        }
-                        @country.FifaAssociation
+                    <td class="text-center">
+                        <a href="@country.FifaAssociationUrl" target="_blank">
+                            <img class="m-3 mx-auto d-block" src="@Url.Content($"~/Content/img/badges/fifa/ass-1/{country.FIFA}.png")">
+                            @country.FifaAssociation
+                        </a>
                     </td>
                 </tr>
             }

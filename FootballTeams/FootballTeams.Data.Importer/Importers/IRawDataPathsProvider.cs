@@ -6,7 +6,7 @@ namespace FootballTeams.Data.Importer.Importers
 {
     public interface IRawDataPathsProvider
     {
-        string CountryCodesFilePath { get; }
+        string FaoCountryCodesFilePath { get; }
         string FifaCountryCodesFilePath { get; }
         string ItalianTeamsDirectory { get; }
         string ItalianPlayersDirectory { get; }

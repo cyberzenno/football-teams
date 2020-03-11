@@ -21,7 +21,7 @@
                 <table class="table">
                     <tbody>
                         <tr>
-                            <td>Current Team</td>
+                            <td class="w-35">Team</td>
                             <td>
                                 @if (Model.Team != null)
                                 {
@@ -36,8 +36,8 @@
                         <tr>
                             <td>Nationality</td>
                             <td>
-                                <img class="flag-single" src="@Model.NationalityFlagUrl(Url)">
-                                @Model.Nationality
+                                <img class="flag-single mr-3" src="@Url.Content($"~/content/img/flags/flags-1/{Model.NationalityFIFA}.png")">
+                                <a href="https://www.fifa.com/associations/association/@Model.NationalityFIFA" target="_blank">@Model.Nationality</a>
                             </td>
                         </tr>
                         <tr>

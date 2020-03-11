@@ -9,6 +9,7 @@ namespace FootballTeams.Data.Importer.CountryData
     public interface ICountryDataImporter : IDataImporter<Country>
     {
         List<Country> GetAllFifaRecords();
+        List<Country> GetAllFaoRecords();
     }
 
     public class CountryDataImporter : DataImporter<Country>, ICountryDataImporter
@@ -23,49 +24,58 @@ namespace FootballTeams.Data.Importer.CountryData
 
         public override List<Country> GetAllRecords()
         {
-            var rawFileContent = GetFile(_rawDataPaths.CountryCodesFilePath);
-            var countries = _rawDataParser.ParseFile(rawFileContent);
+            var fifaCountries = GetAllFifaRecords();
 
-            var rawFifaFileContent = GetFile(_rawDataPaths.FifaCountryCodesFilePath);
-            var fifaCountries = (_rawDataParser as ICountryDataParser).ParseFileFifa(rawFifaFileContent);
+            var faoCountries = GetAllFaoRecords();
 
-            foreach (var c in countries)
+            foreach (var fifaCountry in fifaCountries)
             {
                 //1: try by ISO3
                 //there are around 100 exceptions between FIFA and ISO
-                var fc = fifaCountries.FirstOrDefault(x => x.FIFA == c.ISO3);
-                if (fc == null)
+                var faoCountry = faoCountries.FirstOrDefault(x => x.ISO3 == fifaCountry.FIFA);
+                if (faoCountry == null)
                 {
                     //2: if not, try by name
-                    fc = fifaCountries.FirstOrDefault(x =>
+                    faoCountry = faoCountries.FirstOrDefault(fc =>
                     {
-                        var nameFromFifaFile = Regex.Replace(x.ShortName.ToLower(), "[^a-z]", "");
-                        var nameFromFaoFile = Regex.Replace(c.ShortName.ToLower(), "[^a-z]", "");
+                        var nameFromFaoFile = Regex.Replace(fc.ExtendedName.ToLower(), "[^a-z]", "");
 
-                        return
-                        nameFromFaoFile == nameFromFifaFile ||
-                        nameFromFaoFile.Contains(nameFromFifaFile);
+                        var nameFromFifaFile = Regex.Replace(fifaCountry.Name.ToLower(), "[^a-z]", "");
+
+                        return nameFromFaoFile.Contains(nameFromFifaFile);
                     });
                 }
 
-                if (fc != null)
+                if (faoCountry != null)
                 {
-                    c.FIFA = fc.FIFA;
-                    c.FifaAssociation = fc.FifaAssociation;
+                    fifaCountry.ExtendedName = faoCountry.Name;
+                    fifaCountry.OfficialName = faoCountry.OfficialName;
+                    fifaCountry.ISO3 = faoCountry.ISO3;
+                    fifaCountry.ISO2 = faoCountry.ISO2;
+                    fifaCountry.UNI = faoCountry.UNI;
+                    fifaCountry.OriginUrl = faoCountry.OriginUrl;
 
-                    fifaCountries.Remove(fc);
+                    faoCountries.Remove(faoCountry);
                 }
             }
 
-            return countries;
+            return fifaCountries;
         }
 
         public List<Country> GetAllFifaRecords()
         {
-            var rawFifaFileContent = GetFile(_rawDataPaths.FifaCountryCodesFilePath);
-            var fifaCountries = (_rawDataParser as ICountryDataParser).ParseFileFifa(rawFifaFileContent);
+            var rawFileContent = GetFile(_rawDataPaths.FifaCountryCodesFilePath);
+            var countries = (_rawDataParser as ICountryDataParser).ParseFileFifa(rawFileContent);
 
-            return fifaCountries;
+            return countries;
+        }
+
+        public List<Country> GetAllFaoRecords()
+        {
+            var rawFileContent = GetFile(_rawDataPaths.FaoCountryCodesFilePath);
+            var countries = (_rawDataParser as ICountryDataParser).ParseFile(rawFileContent);
+
+            return countries;
         }
     }
 }

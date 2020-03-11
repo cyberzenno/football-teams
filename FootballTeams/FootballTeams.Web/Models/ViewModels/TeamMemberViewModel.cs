@@ -12,8 +12,7 @@ namespace FootballTeams.Web.Models.ViewModels
 
         public string Fullname { get; set; }
         public string Nationality { get; set; }
-        public string NationalityISO2 { get; set; }
-        public string NationalityISO3 { get; set; }
+        public string NationalityFIFA { get; set; }
         public DateTime? DateOfBirth { get; set; }
 
         public int? TeamId { get; set; }
@@ -65,11 +64,6 @@ namespace FootballTeams.Web.Models.ViewModels
         public static bool IsManager(this TeamMemberViewModel vmTeamMember)
         {
             return vmTeamMember.Role == MemberRole.Manager;
-        }
-
-        public static string NationalityFlagUrl(this TeamMemberViewModel vmTeamMember, UrlHelper url)
-        {
-            return url.Content($"~/content/img/flags/{vmTeamMember.NationalityISO3}.gif");
         }
     }
 }

@@ -23,6 +23,19 @@
             </thead>
             <tbody>
                 <tr>
+                    <td>FAO Countries - Test Only<br></td>
+                    <td>
+                        <button type="submit" class="btn btn-info btn-sm" formaction="@Url.Action("FaoCountry")">Test</button>
+                    </td>
+                    <td></td>
+                    <td>
+                        <a href="@Url.Content("~/Content/RawData/CountryData/FaoCountryCodes.html")" target="_blank">FAO Country Codes</a>
+                    </td>
+                    <td>
+                        <a href="http://www.fao.org/countryprofiles/iso3list/en/" target="_blank">FAO</a>
+                    </td>
+                </tr>
+                <tr>
                     <td>FIFA Countries - Test Only<br></td>
                     <td>
                         <button type="submit" class="btn btn-info btn-sm" formaction="@Url.Action("FifaCountry")">Test</button>
@@ -32,10 +45,11 @@
                         <a href="@Url.Content("~/Content/RawData/CountryData/FifaCountryCodes.html")" target="_blank">FIFA Country Codes</a>
                     </td>
                     <td>
-                    <a href="https://en.wikipedia.org/wiki/List_of_FIFA_country_codes" target="_blank">Wikipedia</a></td>
+                        <a href="https://en.wikipedia.org/wiki/List_of_FIFA_country_codes" target="_blank">Wikipedia</a>
+                    </td>
                 </tr>
                 <tr>
-                    <td>All Countries - Updated with FIFA Codes<br></td>
+                    <td>All Countries - FIFA and FAO Merged<br></td>
                     <td>
                         <button type="submit" class="btn btn-info btn-sm" formaction="@Url.Action("Country")">Test</button>
                     </td>
@@ -43,9 +57,9 @@
                         <button type="submit" class="btn btn-info btn-sm" @importDisabled formaction="@Url.Action("CountryImport")">Import</button>
                     </td>
                     <td>
-                        <a href="@Url.Content("~/Content/RawData/CountryData/CountryCodes.html")" target="_blank">All Countries</a>
+                       
                     </td>
-                    <td><a href="http://www.fao.org/countryprofiles/iso3list/en/" target="_blank">FAO</a></td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td class="bg-info" colspan="5"><span class="text-white font-weight-bold">Italian League<br></span></td>

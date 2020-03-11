@@ -54,8 +54,11 @@
                                 <tr>
                                     <td>Nationality</td>
                                     <td>
-                                        <span class="flag @manager.NationalityISO2"></span>
-                                        @manager.Nationality
+                                        @if (manager.NationalityFIFA != null)
+                                        {
+                                            <img class="flag-single" src="@Url.Content($"~/content/img/flags/flags-1/{manager.NationalityFIFA}.png")">
+                                            @manager.Nationality
+                                        }
                                     </td>
                                 </tr>
                             </tbody>

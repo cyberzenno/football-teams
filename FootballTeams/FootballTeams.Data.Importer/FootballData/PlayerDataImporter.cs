@@ -55,9 +55,8 @@ namespace FootballTeams.Data.Importer.FootballData
                     var country = TryGetCountry(p.AdditionalDetailsJson, allCountries);
                     if (country != null)
                     {
-                        p.Nationality = country.ShortName;
-                        p.NationalityISO2 = country.ISO2;
-                        p.NationalityISO3 = country.ISO3;
+                        p.Nationality = country.Name;
+                        p.NationalityFIFA = country.FIFA;
                     }
 
                 }
@@ -74,15 +73,8 @@ namespace FootballTeams.Data.Importer.FootballData
             try
             {
                 var nationalityFIFA = additionalDetailsJson.ToAdditionalDetailsDataModel().GetDetailValueOrDefault("Nationality");
-                //unfotunately the italian website, hasn't been using a fully correct Country ISO3
-                //so we need to try some alternatives, if the ISO3 is not working
 
-                //FIFA
-                var country = allCountries.FirstOrDefault(x => x.FIFA == nationalityFIFA);
-                if (country != null) return country;
-
-                return country;
-
+                return allCountries.FirstOrDefault(x => x.FIFA == nationalityFIFA);
             }
             catch (System.Exception)
             {

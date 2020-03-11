@@ -48,11 +48,11 @@
                     <td>
                         <div class="row">
                             <div class="col col-3">
-                                <img class="flag-single" src="@player.NationalityFlagUrl(Url)">
+                                <img class="flag-single" src="@Url.Content($"~/content/img/flags/flags-1/{player.NationalityFIFA??"ERT"}.png")">
                             </div>
                             <div class="col">
 
-                                <a target="_blank" href="http://www.fao.org/countryprofiles/index/en/?iso3=@player.NationalityISO3">@player.Nationality</a>
+                                <a target="_blank" href="https://www.fifa.com/associations/association/@player.NationalityFIFA">@player.Nationality</a>
 
                             </div>
                         </div>
