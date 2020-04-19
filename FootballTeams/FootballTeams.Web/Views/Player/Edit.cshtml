@@ -6,7 +6,7 @@
     var dateOfBirth = Model.DateOfBirth.HasValue ? Model.DateOfBirth.Value.ToString("yyyy-MM-dd") : "";
 }
 
-<form method="post" action="@Url.Action("Edit")">
+<form method="post" action="@Url.Action("Edit")" autocomplete="off">
 
     @Html.AntiForgeryToken()
 
@@ -21,8 +21,8 @@
             <div class="form-group">
 
                 <label>Nationality</label>
-                <input id="Nationality" class="form-control" type="text" placeholder="Nationality" name="Nationality" autocomplete="no" value="@Model.Nationality">
-                <input id="NationalityFIFA" type="hidden" name="NationalityFIFA" value="@Model.NationalityFIFA">
+                <input id="Nationality" class="form-control" type="text" placeholder="Nationality" name="Nationality" autocomplete="off" value="@Model.Nationality">
+                <input id="NationalityFIFA" type="hidden" name="NationalityFIFA" value="@(Model?.NationalityFIFA)">
 
                 <div class="dropdown" style="cursor:pointer;">
                     <div id="nationality-dropdown" class="dropdown-menu" role="menu">

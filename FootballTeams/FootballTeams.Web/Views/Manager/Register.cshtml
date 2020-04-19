@@ -3,7 +3,7 @@
     ViewBag.Title = "Register Manager";
 }
 
-<form method="post" action="@Url.Action("Register")">
+<form method="post" action="@Url.Action("Register")" autocomplete="off">
 
     @Html.AntiForgeryToken()
 
@@ -17,9 +17,8 @@
             </div>
             <div class="form-group">
                 <label>Nationality</label>
-                <input id="nationality" class="form-control" type="text" placeholder="Nationality" name="Nationality" autocomplete="no" value="">
-                <input id="nationalityISO2" type="hidden" name="NationalityISO2" value="">
-                <input id="nationalityISO3" type="hidden" name="NationalityISO3" value="">
+                <input id="Nationality" class="form-control" type="text" placeholder="Nationality" name="Nationality" autocomplete="off" value="">
+                <input id="NationalityFIFA" type="hidden" name="NationalityFIFA" value="">
 
                 <div class="dropdown" style="cursor:pointer;">
                     <div id="nationality-dropdown" class="dropdown-menu" role="menu">

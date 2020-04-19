@@ -609,6 +609,7 @@
     <Content Include="Content\img\flags\flags-1\FRO.png" />
     <Content Include="Content\img\flags\flags-1\GAB.png" />
     <Content Include="Content\img\flags\flags-1\GAM.png" />
+    <Content Include="Content\img\flags\flags-1\GBR.png" />
     <Content Include="Content\img\flags\flags-1\GEO.png" />
     <Content Include="Content\img\flags\flags-1\GER.png" />
     <Content Include="Content\img\flags\flags-1\GHA.png" />
@@ -1182,6 +1183,7 @@
     <Content Include="Content\img\teams\brescia.png" />
     <Content Include="Content\img\teams\cagliari.png" />
     <Content Include="Content\img\teams\chievo.png" />
+    <Content Include="Content\img\teams\special.png" />
     <Content Include="Content\img\teams\default-team.png" />
     <Content Include="Content\img\teams\empoli.png" />
     <Content Include="Content\img\teams\fiorentina.png" />

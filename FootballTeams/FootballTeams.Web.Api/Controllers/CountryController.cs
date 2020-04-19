@@ -26,10 +26,11 @@ namespace FootballTeams.Web.Api.Controllers
         public IHttpActionResult Lookup(string search)
         {
             var countries = _countryRepository
-                .Get(x => x.Name.Contains(search) || x.FIFA.Contains(search) || x.ISO3.Contains(search) || x.ISO2.Contains(search))
+                .Get(x => (x.Name + x.OfficialName + x.OfficialName + x.FIFA + x.ISO3 + x.ISO2).Contains(search))
                 .Select(x => new
                 {
                     x.Name,
+                    x.OfficialName,
                     x.FIFA,
                     x.ISO2,
                     x.ISO3
@@ -43,7 +44,7 @@ namespace FootballTeams.Web.Api.Controllers
         public IHttpActionResult Search(string search)
         {
             var countries = _countryRepository
-                .Get(x => x.Name.Contains(search) || x.FIFA.Contains(search) || x.ISO3.Contains(search) || x.ISO2.Contains(search))
+                .Get(x => (x.Name + x.OfficialName + x.OfficialName + x.FIFA + x.ISO3 + x.ISO2).Contains(search))
                 .ToList();
 
             return Ok(countries);
